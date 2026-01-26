@@ -72,7 +72,7 @@ export default async function HomePage() {
                         Style & Elegance.
                     </h1>
                     <p className="text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
-                        Experience premium hair care in the heart of Copenhagen.
+                        Experience premium hair care in the heart of Glostrup.
                     </p>
                 </div>
 

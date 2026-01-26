@@ -46,74 +46,88 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 group">
-            <div className="w-10 h-10 text-white group-hover:scale-110 transition-transform">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Header */}
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+          <Link href="/" className="text-xl font-bold flex items-center gap-2">
+            <div className="w-5 h-5">
               <ScissorsIcon className="w-full h-full" />
             </div>
-            <span className="text-3xl font-bold text-white">Hairadresser</span>
+            Hairadresser
           </Link>
-          <p className="text-gray-400 mt-3">Welcome back!</p>
+          <Link href="/register" className="text-sm font-medium text-gray-600 hover:text-black transition-colors">
+            Sign Up
+          </Link>
         </div>
+      </nav>
 
-        {/* Login Form */}
-        <form onSubmit={handleSubmit} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-          {error && (
-            <div className="bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg mb-6 text-sm">
-              {error}
+      {/* Main Content */}
+      <main className="flex-1 flex items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          {/* Heading */}
+          <div className="text-center mb-10">
+            <h1 className="text-3xl font-bold text-black mb-3">Welcome Back</h1>
+            <p className="text-gray-600">Sign in to your account</p>
+          </div>
+
+          {/* Login Form */}
+          <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+            {error && (
+              <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-4 rounded-xl mb-6 text-sm font-medium flex items-center gap-3">
+                <span>⚠️</span>
+                <span>{error}</span>
+              </div>
+            )}
+
+            <div className="mb-5">
+              <label className="block text-sm font-bold text-gray-900 mb-2">Email Address</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-black transition-all"
+                placeholder="john@example.com"
+                required
+                autoFocus
+              />
             </div>
-          )}
 
-          <div className="mb-4">
-            <label className="block text-gray-300 mb-2">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              placeholder="you@example.com"
-              required
-              autoFocus
-            />
-          </div>
+            <div className="mb-6">
+              <label className="block text-sm font-bold text-gray-900 mb-2">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-black transition-all"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
 
-          <div className="mb-6">
-            <label className="block text-gray-300 mb-2">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              placeholder="••••••••"
-              required
-            />
-          </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
+            >
+              {loading ? 'Signing in...' : 'Sign In'}
+            </button>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg text-white font-semibold disabled:opacity-50 transition-all hover:scale-[1.02]"
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
+            <p className="text-center text-gray-600 text-sm mt-6">
+              Don&apos;t have an account?{' '}
+              <Link href="/register" className="font-semibold text-black hover:underline">
+                Create one
+              </Link>
+            </p>
+          </form>
 
-          <p className="text-center text-gray-400 text-sm mt-6">
-            Don&apos;t have an account?{' '}
-            <Link href="/register" className="text-pink-400 hover:text-pink-300">
-              Sign up
+          <p className="text-center mt-6">
+            <Link href="/" className="text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors">
+              ← Back to homepage
             </Link>
           </p>
-        </form>
-
-        <p className="text-center mt-6">
-          <Link href="/" className="text-gray-500 hover:text-gray-400 text-sm">
-            ← Back to homepage
-          </Link>
-        </p>
-      </div>
+        </div>
+      </main>
     </div>
   )
 }

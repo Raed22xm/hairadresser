@@ -17,13 +17,16 @@ async function main() {
 
     const hairdresser = await prisma.hairdresser.upsert({
         where: { email: 'admin@hairadresser.dk' },
-        update: {},
+        update: {
+            salonName: 'Frisør Glostrup',
+            address: 'Hovedvejen 139, st. 3, 2600 Glostrup',
+        },
         create: {
             name: 'Maria Hansen',
-            salonName: 'Hairadresser Salon',
+            salonName: 'Frisør Glostrup',
             email: 'admin@hairadresser.dk',
             phone: '+45 12 34 56 78',
-            address: 'Vestergade 123, 1234 Copenhagen',
+            address: 'Hovedvejen 139, st. 3, 2600 Glostrup',
             passwordHash,
         },
     })
