@@ -2,236 +2,156 @@
  * Homepage Component
  * 
  * The main landing page for Hairadresser Salon.
- * Displays salon information, services, opening hours, and booking CTAs.
- * 
- * @module app/page
+ * Features a seamless, embedded booking wizard.
  */
 
 import Link from 'next/link'
 import { prisma } from '@/lib/db'
+import BookingWizard from '@/components/BookingWizard'
+import { ScissorsIcon } from '@/components/Icons'
 
-/**
- * Fetches all active services from the database
- * 
- * @returns {Promise<Service[]>} Array of active services sorted by name
- * @example
- * const services = await getServices()
- * // Returns: [{ id: '...', name: 'Haircut', price: 250, ... }, ...]
- */
-async function getServices() {
-  const services = await prisma.service.findMany({
-    where: { isActive: true },
-    orderBy: { name: 'asc' },
-  })
-  return services
-}
-
-/**
- * Fetches the hairdresser/salon information from the database
- * 
- * @returns {Promise<Hairdresser | null>} Hairdresser data or null if not found
- * @example
- * const hairdresser = await getHairdresser()
- * // Returns: { id: '...', name: 'Maria', salonName: 'Hairadresser Salon', ... }
- */
 async function getHairdresser() {
   const hairdresser = await prisma.hairdresser.findFirst()
   return hairdresser
 }
 
-/**
- * HomePage Component
- * 
- * Server-side rendered landing page that:
- * - Fetches services and hairdresser data from the database
- * - Displays hero section with salon branding
- * - Shows service cards with prices and booking links
- * - Presents opening hours and contact information
- * - Includes call-to-action sections for bookings
- * 
- * @returns {Promise<JSX.Element>} The rendered homepage
- */
 export default async function HomePage() {
-  // Fetch data in parallel for better performance
-  const [services, hairdresser] = await Promise.all([
-    getServices(),
-    getHairdresser(),
-  ])
+  const hairdresser = await getHairdresser()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="min-h-screen bg-white text-black">
       {/* ========================================
           HEADER SECTION
-          Navigation bar with logo and booking CTA
           ======================================== */}
-      <header className="border-b border-white/10 backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          {/* Salon Logo/Name */}
-          <h1 className="text-2xl font-bold text-white">
-            ✂️ {hairdresser?.salonName || 'Hairadresser'}
-          </h1>
-          {/* Header CTA Button */}
-          <Link
-            href="/booking"
-            className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-opacity"
-          >
-            Book Now
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 transition-all duration-300">
+        <div className="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
+          {/* Salon Logo */}
+          <Link href="/" className="flex items-center gap-2 group cursor-pointer">
+            <div className="w-7 h-7 group-hover:rotate-12 transition-transform text-black">
+              <ScissorsIcon className="w-full h-full" />
+            </div>
+            <span className="text-xl font-bold tracking-tight group-hover:text-gray-700 transition-colors">
+                {hairdresser?.salonName || 'Hairadresser'}
+            </span>
           </Link>
+
+          {/* Navigation */}
+          <nav className="flex items-center gap-6">
+            <Link
+              href="/account"
+              className="text-sm font-medium text-gray-600 hover:text-black transition-colors"
+            >
+              My Account
+            </Link>
+          </nav>
         </div>
       </header>
 
       {/* ========================================
-          HERO SECTION
-          Main welcome message and primary CTA
+          MAIN CONTENT
           ======================================== */}
-      <section className="max-w-6xl mx-auto px-4 py-20 text-center">
-        {/* Main Heading with Gradient Text */}
-        <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-          Welcome to{' '}
-          <span className="bg-gradient-to-r from-pink-400 to-purple-400 text-transparent bg-clip-text">
-            {hairdresser?.salonName || 'Hairadresser'}
-          </span>
-        </h2>
-        {/* Subheading */}
-        <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-          Your neighborhood hair salon in Copenhagen. Professional styling,
-          coloring, and cuts for everyone.
-        </p>
-        {/* Primary CTA Button */}
-        <Link
-          href="/booking"
-          className="inline-block bg-gradient-to-r from-pink-500 to-purple-600 text-white text-lg px-10 py-4 rounded-full font-semibold hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-purple-500/30"
-        >
-          Book Your Appointment
-        </Link>
-      </section>
-
-      {/* ========================================
-          SERVICES SECTION
-          Grid of service cards from database
-          ======================================== */}
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <h3 className="text-3xl font-bold text-white text-center mb-12">
-          Our Services
-        </h3>
-        {/* Services Grid - 3 columns on desktop */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <div
-              key={service.id}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors"
-            >
-              {/* Service Header: Name and Price */}
-              <div className="flex justify-between items-start mb-4">
-                <h4 className="text-xl font-semibold text-white">
-                  {service.name}
-                </h4>
-                <span className="text-2xl font-bold text-pink-400">
-                  {Number(service.price)} kr
-                </span>
-              </div>
-              {/* Service Description */}
-              <p className="text-gray-400 mb-4">
-                {service.description || 'Professional service'}
-              </p>
-              {/* Service Footer: Duration and Booking Link */}
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500">
-                  ⏱️ {service.durationMinutes} min
-                </span>
-                <Link
-                  href={`/booking?service=${service.id}`}
-                  className="text-pink-400 hover:text-pink-300 font-medium"
-                >
-                  Book →
-                </Link>
-              </div>
-            </div>
-          ))}
+      <main className="min-h-screen relative">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-x-0 top-0 h-[600px] z-0">
+             <div className="relative w-full h-full">
+                {/* Image Placeholder - In production use next/image */}
+                <img 
+                    src="/salon-interior.png" 
+                    alt="Salon Interior" 
+                    className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/80 to-white"></div>
+             </div>
         </div>
-      </section>
 
-      {/* ========================================
-          INFO SECTION
-          Opening hours and contact information
-          ======================================== */}
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Opening Hours Card */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-white mb-6">
-              📅 Opening Hours
-            </h3>
-            <div className="space-y-3 text-gray-300">
-              <div className="flex justify-between">
-                <span>Monday - Friday</span>
-                <span className="text-white font-medium">09:00 - 17:00</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Saturday</span>
-                <span className="text-white font-medium">10:00 - 14:00</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Sunday</span>
-                <span className="text-red-400">Closed</span>
-              </div>
+        <div className="relative z-10 pt-32 pb-20 px-4">
+            <div className="max-w-6xl mx-auto">
+                {/* Hero Text */}
+                <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                    <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-black drop-shadow-sm">
+                        Style & Elegance.
+                    </h1>
+                    <p className="text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
+                        Experience premium hair care in the heart of Copenhagen.
+                    </p>
+                </div>
+
+                {/* Main Content Grid */}
+                <div className="grid lg:grid-cols-12 gap-8 items-start animate-in fade-in zoom-in-95 duration-700 delay-150">
+                    
+                    {/* Booking Wizard (Primary) */}
+                    <div className="lg:col-span-7 shadow-2xl rounded-3xl overflow-hidden bg-white z-20 relative">
+                        <BookingWizard />
+                    </div>
+
+                    {/* Feature Image & Gallery Side */}
+                    <div className="lg:col-span-5 flex flex-col gap-4 hidden md:flex">
+                        {/* Main Image */}
+                        <div className="relative rounded-3xl overflow-hidden shadow-2xl group min-h-[400px] flex-1">
+                            <img 
+                                src="/man-fade.png" 
+                                alt="Men's Fade Cut" 
+                                className="absolute inset-0 w-full h-full object-cover grayscale brightness-90 group-hover:brightness-110 group-hover:scale-105 transition-all duration-700"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
+                                <h3 className="text-3xl font-bold mb-2">Precision Styling</h3>
+                                <p className="text-gray-300">Masterful fade cuts and beard grooming for the modern gentleman.</p>
+                                <div className="mt-4 flex gap-2">
+                                    <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium">Fade Cut</span>
+                                    <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium">Beard Trim</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Style Gallery Bar */}
+                        <div className="grid grid-cols-3 gap-3">
+                             <div className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group shadow-lg">
+                                <img src="/man-crop.png" alt="Textured Crop" className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500"/>
+                                <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-all"/>
+                                <span className="absolute bottom-2 left-2 text-[10px] font-bold text-white uppercase tracking-wider opacity-90">Crop</span>
+                             </div>
+                             <div className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group shadow-lg">
+                                <img src="/man-sidepart.png" alt="Side Part" className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500"/>
+                                <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-all"/>
+                                <span className="absolute bottom-2 left-2 text-[10px] font-bold text-white uppercase tracking-wider opacity-90">Classic</span>
+                             </div>
+                             <div className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group shadow-lg">
+                                <img src="/man-buzz.png" alt="Buzz Cut" className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500"/>
+                                <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-all"/>
+                                <span className="absolute bottom-2 left-2 text-[10px] font-bold text-white uppercase tracking-wider opacity-90">Buzz</span>
+                             </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            {/* Info Footer */}
+            <div className="mt-20 grid md:grid-cols-3 gap-8 text-center text-sm text-gray-500 border-t border-gray-100 pt-12">
+                <div>
+                    <h3 className="font-semibold text-black mb-2">Location</h3>
+                    <p>{hairdresser?.address || 'Copenhagen, Denmark'}</p>
+                </div>
+                <div>
+                    <h3 className="font-semibold text-black mb-2">Hours</h3>
+                    <p>Mon-Fri: 09:00 - 17:00</p>
+                    <p>Sat: 10:00 - 14:00</p>
+                </div>
+                <div>
+                    <h3 className="font-semibold text-black mb-2">Contact</h3>
+                    <p>{hairdresser?.phone || '+45 12 34 56 78'}</p>
+                    <p>{hairdresser?.email || 'hello@hairadresser.dk'}</p>
+                </div>
             </div>
-          </div>
-
-          {/* Contact Information Card */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-white mb-6">
-              📍 Contact Us
-            </h3>
-            <div className="space-y-4 text-gray-300">
-              <p>
-                <span className="text-gray-500">Address:</span>
-                <br />
-                <span className="text-white">{hairdresser?.address || 'Copenhagen, Denmark'}</span>
-              </p>
-              <p>
-                <span className="text-gray-500">Phone:</span>
-                <br />
-                <span className="text-white">{hairdresser?.phone || '+45 12 34 56 78'}</span>
-              </p>
-              <p>
-                <span className="text-gray-500">Email:</span>
-                <br />
-                <span className="text-white">{hairdresser?.email || 'hello@hairadresser.dk'}</span>
-              </p>
-            </div>
-          </div>
         </div>
-      </section>
+        </div>
+      </main>
 
       {/* ========================================
-          CTA SECTION
-          Final call-to-action before footer
+          FOOTER
           ======================================== */}
-      <section className="max-w-6xl mx-auto px-4 py-20 text-center">
-        <div className="bg-gradient-to-r from-pink-500/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-3xl p-12">
-          <h3 className="text-3xl font-bold text-white mb-4">
-            Ready for a Fresh Look?
-          </h3>
-          <p className="text-gray-300 mb-8">
-            Book your appointment online in less than 2 minutes
-          </p>
-          <Link
-            href="/booking"
-            className="inline-block bg-white text-purple-900 text-lg px-10 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-          >
-            Book Now →
-          </Link>
-        </div>
-      </section>
-
-      {/* ========================================
-          FOOTER SECTION
-          Copyright and legal information
-          ======================================== */}
-      <footer className="border-t border-white/10 py-8">
-        <div className="max-w-6xl mx-auto px-4 text-center text-gray-500">
-          <p>© 2024 {hairdresser?.salonName || 'Hairadresser'}. All rights reserved.</p>
+      <footer className="bg-gray-50 border-t border-gray-100 py-8">
+        <div className="max-w-6xl mx-auto px-4 text-center text-gray-400 text-sm">
+          <p>© {new Date().getFullYear()} {hairdresser?.salonName || 'Hairadresser'}. All rights reserved.</p>
         </div>
       </footer>
     </div>
