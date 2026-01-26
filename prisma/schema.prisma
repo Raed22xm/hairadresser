@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Hairdresser {
+  id           String        @id @default(uuid())
+  name         String
+  salonName    String
+  email        String        @unique
+  phone        String?
+  address      String?
+  passwordHash String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  services     Service[]
+  availability Availability[]
+  blockedSlots BlockedSlot[]
+  bookings     Booking[]
+}
+
+model Service {
+  id              String   @id @default(uuid())
+  hairdresserId   String
+  name            String
+  description     String?
+  durationMinutes Int
+  price           Decimal  @db.Decimal(10, 2)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  hairdresser Hairdresser @relation(fields: [hairdresserId], references: [id])
+  bookings    Booking[]
+
+  @@index([hairdresserId])
+}
+
+model Availability {
+  id            String   @id @default(uuid())
+  hairdresserId String
+  dayOfWeek     Int      // 0=Sunday, 6=Saturday
+  startTime     String   // "09:00"
+  endTime       String   // "17:00"
+  isAvailable   Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  hairdresser Hairdresser @relation(fields: [hairdresserId], references: [id])
+
+  @@unique([hairdresserId, dayOfWeek])
+  @@index([hairdresserId])
+}
+
+model BlockedSlot {
+  id            String   @id @default(uuid())
+  hairdresserId String
+  date          DateTime @db.Date
+  startTime     String?  // null = whole day blocked
+  endTime       String?
+  reason        String?
+  createdAt     DateTime @default(now())
+
+  hairdresser Hairdresser @relation(fields: [hairdresserId], references: [id])
+
+  @@index([hairdresserId, date])
+}
+
+model Booking {
+  id            String   @id @default(uuid())
+  hairdresserId String
+  serviceId     String
+  customerName  String
+  customerEmail String
+  customerPhone String?
+  date          DateTime @db.Date
+  startTime     String   // "10:00"
+  endTime       String   // "10:30"
+  status        String   @default("confirmed") // confirmed, cancelled
+  cancelToken   String   @unique @default(uuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  hairdresser Hairdresser @relation(fields: [hairdresserId], references: [id])
+  service     Service     @relation(fields: [serviceId], references: [id])
+
+  @@index([hairdresserId, date])
+  @@index([cancelToken])
+}
