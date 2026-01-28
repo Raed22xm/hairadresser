@@ -33,6 +33,7 @@ model Service {
   description     String?
   durationMinutes Int
   price           Decimal  @db.Decimal(10, 2)
+  imageUrl        String?  // URL to service image
   isActive        Boolean  @default(true)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -109,4 +110,3 @@ model Customer {
 
   bookings     Booking[]
 }
-

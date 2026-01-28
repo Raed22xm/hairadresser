@@ -40,6 +40,7 @@ async function main() {
             update: {
                 name: 'Herreklip',
                 description: 'Klassisk klip inkl. vask og styling',
+                imageUrl: '/service-haircut.jpg',
             },
             create: {
                 id: 'service-haircut',
@@ -48,6 +49,7 @@ async function main() {
                 description: 'Klassisk klip inkl. vask og styling',
                 durationMinutes: 30,
                 price: 250,
+                imageUrl: '/service-haircut.jpg',
                 isActive: true,
             },
         }),
@@ -56,6 +58,7 @@ async function main() {
             update: {
                 name: 'Hårfarvning',
                 description: 'Helfarvning med premium produkter',
+                imageUrl: '/service-color.jpg',
             },
             create: {
                 id: 'service-color',
@@ -64,6 +67,7 @@ async function main() {
                 description: 'Helfarvning med premium produkter',
                 durationMinutes: 60,
                 price: 500,
+                imageUrl: '/service-color.jpg',
                 isActive: true,
             },
         }),
@@ -72,6 +76,7 @@ async function main() {
             update: {
                 name: 'Styling',
                 description: 'Professionel styling til enhver lejlighed',
+                imageUrl: '/service-styling.jpg',
             },
             create: {
                 id: 'service-styling',
@@ -80,6 +85,7 @@ async function main() {
                 description: 'Professionel styling til enhver lejlighed',
                 durationMinutes: 45,
                 price: 300,
+                imageUrl: '/service-styling.jpg',
                 isActive: true,
             },
         }),
