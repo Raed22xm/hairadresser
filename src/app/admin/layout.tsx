@@ -49,7 +49,7 @@ export default async function AdminLayout({
             <div className="w-5 h-5">
               <ScissorsIcon className="w-full h-full" />
             </div>
-            Hairadresser
+            Frisør Glostrup
           </Link>
           <p className="text-xs text-gray-400 mt-2">Admin Panel</p>
         </div>
@@ -61,28 +61,28 @@ export default async function AdminLayout({
             className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-black hover:text-white transition-colors"
           >
             <BarChartIcon className="w-5 h-5" />
-            Dashboard
+            Oversigt
           </Link>
           <Link
             href="/admin/bookings"
             className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-black hover:text-white transition-colors"
           >
             <CalendarIcon className="w-5 h-5" />
-            Bookings
+            Bookinger
           </Link>
           <Link
             href="/admin/services"
             className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-black hover:text-white transition-colors"
           >
             <ScissorsBarIcon className="w-5 h-5" />
-            Services
+            Behandlinger
           </Link>
           <Link
             href="/admin/availability"
             className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-black hover:text-white transition-colors"
           >
             <ClockIcon className="w-5 h-5" />
-            Availability
+            Åbningstider
           </Link>
         </nav>
 
@@ -92,7 +92,7 @@ export default async function AdminLayout({
             href="/"
             className="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-black transition-colors text-sm"
           >
-            ← Back to Website
+            ← Tilbage til Hjemmesiden
           </Link>
           <form action="/api/admin/logout" method="POST">
             <button
@@ -100,7 +100,7 @@ export default async function AdminLayout({
               className="w-full flex items-center gap-3 px-4 py-2 text-red-500 hover:text-red-600 transition-colors text-sm mt-1"
             >
               <LogoutIcon className="w-5 h-5" />
-              Logout
+              Log ud
             </button>
           </form>
         </div>

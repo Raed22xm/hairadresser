@@ -31,7 +31,7 @@ export default function LoginPage() {
       const data = await res.json()
 
       if (!res.ok) {
-        setError(data.error || 'Login failed')
+        setError(data.error || 'Login mislykkedes')
         setLoading(false)
         return
       }
@@ -40,7 +40,7 @@ export default function LoginPage() {
       router.push('/account')
       router.refresh()
     } catch {
-      setError('Something went wrong')
+      setError('Noget gik galt')
       setLoading(false)
     }
   }
@@ -54,10 +54,10 @@ export default function LoginPage() {
             <div className="w-5 h-5">
               <ScissorsIcon className="w-full h-full" />
             </div>
-            Hairadresser
+            Frisør Glostrup
           </Link>
           <Link href="/register" className="text-sm font-medium text-gray-600 hover:text-black transition-colors">
-            Sign Up
+            Opret Konto
           </Link>
         </div>
       </nav>
@@ -67,8 +67,8 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           {/* Heading */}
           <div className="text-center mb-10">
-            <h1 className="text-3xl font-bold text-black mb-3">Welcome Back</h1>
-            <p className="text-gray-600">Sign in to your account</p>
+            <h1 className="text-3xl font-bold text-black mb-3">Velkommen Tilbage</h1>
+            <p className="text-gray-600">Log ind på din konto</p>
           </div>
 
           {/* Login Form */}
@@ -81,26 +81,26 @@ export default function LoginPage() {
             )}
 
             <div className="mb-5">
-              <label className="block text-sm font-bold text-gray-900 mb-2">Email Address</label>
+              <label className="block text-sm font-bold text-gray-900 mb-2">Email Adresse</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-black transition-all"
-                placeholder="john@example.com"
+                placeholder="jens@email.dk"
                 required
                 autoFocus
               />
             </div>
 
             <div className="mb-6">
-              <label className="block text-sm font-bold text-gray-900 mb-2">Password</label>
+              <label className="block text-sm font-bold text-gray-900 mb-2">Adgangskode</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-black transition-all"
-                placeholder="Enter your password"
+                placeholder="Indtast din adgangskode"
                 required
               />
             </div>
@@ -110,20 +110,20 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full py-3 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
             >
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? 'Logger ind...' : 'Log Ind'}
             </button>
 
             <p className="text-center text-gray-600 text-sm mt-6">
-              Don&apos;t have an account?{' '}
+              Har du ikke en konto?{' '}
               <Link href="/register" className="font-semibold text-black hover:underline">
-                Create one
+                Opret en her
               </Link>
             </p>
           </form>
 
           <p className="text-center mt-6">
             <Link href="/" className="text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors">
-              ← Back to homepage
+              ← Tilbage til forsiden
             </Link>
           </p>
         </div>

@@ -43,31 +43,31 @@ export default function ServiceForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-gray-700 mb-2 text-sm font-medium">Service Name *</label>
+        <label className="block text-gray-700 mb-2 text-sm font-bold">Behandlingsnavn *</label>
         <input
           type="text"
           value={form.name}
           onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))}
           className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-          placeholder="e.g. Haircut"
+          placeholder="f.eks. Herreklip"
           required
         />
       </div>
 
       <div>
-        <label className="block text-gray-700 mb-2 text-sm font-medium">Description</label>
+        <label className="block text-gray-700 mb-2 text-sm font-bold">Beskrivelse</label>
         <textarea
           value={form.description}
           onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))}
           className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-          placeholder="Brief description..."
+          placeholder="Kort beskrivelse..."
           rows={2}
         />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-gray-700 mb-2 text-sm font-medium">Duration (min) *</label>
+          <label className="block text-gray-700 mb-2 text-sm font-bold">Varighed (min) *</label>
           <select
             value={form.durationMinutes}
             onChange={(e) => setForm(prev => ({ ...prev, durationMinutes: e.target.value }))}
@@ -83,7 +83,7 @@ export default function ServiceForm() {
         </div>
 
         <div>
-          <label className="block text-gray-700 mb-2 text-sm font-medium">Price (kr) *</label>
+          <label className="block text-gray-700 mb-2 text-sm font-bold">Pris (kr) *</label>
           <input
             type="number"
             value={form.price}
@@ -98,9 +98,9 @@ export default function ServiceForm() {
       <button
         type="submit"
         disabled={loading || !form.name || !form.price}
-        className="w-full py-3 bg-black rounded-lg text-white font-semibold disabled:opacity-50 transition-all hover:bg-gray-800"
+        className="w-full py-3 bg-black rounded-lg text-white font-semibold disabled:opacity-50 transition-all hover:bg-gray-800 shadow-sm hover:shadow-md"
       >
-        {loading ? 'Adding...' : 'Add Service'}
+        {loading ? 'Tilføjer...' : 'Tilføj Behandling'}
       </button>
     </form>
   )

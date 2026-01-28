@@ -37,12 +37,15 @@ async function main() {
     const services = await Promise.all([
         prisma.service.upsert({
             where: { id: 'service-haircut' },
-            update: {},
+            update: {
+                name: 'Herreklip',
+                description: 'Klassisk klip inkl. vask og styling',
+            },
             create: {
                 id: 'service-haircut',
                 hairdresserId: hairdresser.id,
-                name: 'Haircut',
-                description: 'Classic haircut with wash and styling',
+                name: 'Herreklip',
+                description: 'Klassisk klip inkl. vask og styling',
                 durationMinutes: 30,
                 price: 250,
                 isActive: true,
@@ -50,12 +53,15 @@ async function main() {
         }),
         prisma.service.upsert({
             where: { id: 'service-color' },
-            update: {},
+            update: {
+                name: 'Hårfarvning',
+                description: 'Helfarvning med premium produkter',
+            },
             create: {
                 id: 'service-color',
                 hairdresserId: hairdresser.id,
-                name: 'Hair Coloring',
-                description: 'Full color treatment with premium products',
+                name: 'Hårfarvning',
+                description: 'Helfarvning med premium produkter',
                 durationMinutes: 60,
                 price: 500,
                 isActive: true,
@@ -63,12 +69,15 @@ async function main() {
         }),
         prisma.service.upsert({
             where: { id: 'service-styling' },
-            update: {},
+            update: {
+                name: 'Styling',
+                description: 'Professionel styling til enhver lejlighed',
+            },
             create: {
                 id: 'service-styling',
                 hairdresserId: hairdresser.id,
                 name: 'Styling',
-                description: 'Professional styling for any occasion',
+                description: 'Professionel styling til enhver lejlighed',
                 durationMinutes: 45,
                 price: 300,
                 isActive: true,

@@ -28,7 +28,7 @@ export default function RegisterPage() {
 
     // Validate passwords match
     if (form.password !== form.confirmPassword) {
-      setError('Passwords do not match')
+      setError('Adgangskoderne matcher ikke')
       setLoading(false)
       return
     }
@@ -48,7 +48,7 @@ export default function RegisterPage() {
       const data = await res.json()
 
       if (!res.ok) {
-        setError(data.error || 'Registration failed')
+        setError(data.error || 'Oprettelse mislykkedes')
         setLoading(false)
         return
       }
@@ -57,7 +57,7 @@ export default function RegisterPage() {
       router.push('/account')
       router.refresh()
     } catch {
-      setError('Something went wrong')
+      setError('Noget gik galt')
       setLoading(false)
     }
   }
@@ -71,10 +71,10 @@ export default function RegisterPage() {
             <div className="w-5 h-5">
               <ScissorsIcon className="w-full h-full" />
             </div>
-            Hairadresser
+            Frisør Glostrup
           </Link>
           <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-black transition-colors">
-            Sign In
+            Log Ind
           </Link>
         </div>
       </nav>
@@ -84,8 +84,8 @@ export default function RegisterPage() {
         <div className="w-full max-w-md">
           {/* Heading */}
           <div className="text-center mb-10">
-            <h1 className="text-3xl font-bold text-black mb-3">Create Account</h1>
-            <p className="text-gray-600">Join us to book your appointment</p>
+            <h1 className="text-3xl font-bold text-black mb-3">Opret Konto</h1>
+            <p className="text-gray-600">Tilmeld dig for at booke tid</p>
           </div>
 
           {/* Register Form */}
@@ -98,32 +98,32 @@ export default function RegisterPage() {
             )}
 
             <div className="mb-5">
-              <label className="block text-sm font-bold text-gray-900 mb-2">Full Name *</label>
+              <label className="block text-sm font-bold text-gray-900 mb-2">Fulde Navn *</label>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))}
                 className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-black transition-all"
-                placeholder="John Doe"
+                placeholder="Jens Hansen"
                 required
                 autoFocus
               />
             </div>
 
             <div className="mb-5">
-              <label className="block text-sm font-bold text-gray-900 mb-2">Email Address *</label>
+              <label className="block text-sm font-bold text-gray-900 mb-2">Email Adresse *</label>
               <input
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm(prev => ({ ...prev, email: e.target.value }))}
                 className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-black transition-all"
-                placeholder="john@example.com"
+                placeholder="jens@email.dk"
                 required
               />
             </div>
 
             <div className="mb-5">
-              <label className="block text-sm font-bold text-gray-900 mb-2">Phone Number <span className="font-normal text-gray-500">(Optional)</span></label>
+              <label className="block text-sm font-bold text-gray-900 mb-2">Telefonnummer <span className="font-normal text-gray-500">(Valgfrit)</span></label>
               <input
                 type="tel"
                 value={form.phone}
@@ -134,26 +134,26 @@ export default function RegisterPage() {
             </div>
 
             <div className="mb-5">
-              <label className="block text-sm font-bold text-gray-900 mb-2">Password *</label>
+              <label className="block text-sm font-bold text-gray-900 mb-2">Adgangskode *</label>
               <input
                 type="password"
                 value={form.password}
                 onChange={(e) => setForm(prev => ({ ...prev, password: e.target.value }))}
                 className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-black transition-all"
-                placeholder="Min. 6 characters"
+                placeholder="Min. 6 tegn"
                 required
                 minLength={6}
               />
             </div>
 
             <div className="mb-6">
-              <label className="block text-sm font-bold text-gray-900 mb-2">Confirm Password *</label>
+              <label className="block text-sm font-bold text-gray-900 mb-2">Bekræft Adgangskode *</label>
               <input
                 type="password"
                 value={form.confirmPassword}
                 onChange={(e) => setForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
                 className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-black transition-all"
-                placeholder="Confirm your password"
+                placeholder="Gentag din adgangskode"
                 required
               />
             </div>
@@ -163,20 +163,20 @@ export default function RegisterPage() {
               disabled={loading}
               className="w-full py-3 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
             >
-              {loading ? 'Creating account...' : 'Create Account'}
+              {loading ? 'Opretter konto...' : 'Opret Konto'}
             </button>
 
             <p className="text-center text-gray-600 text-sm mt-6">
-              Already have an account?{' '}
+              Har du allerede en konto?{' '}
               <Link href="/login" className="font-semibold text-black hover:underline">
-                Sign in
+                Log ind
               </Link>
             </p>
           </form>
 
           <p className="text-center mt-6">
             <Link href="/" className="text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors">
-              ← Back to homepage
+              ← Tilbage til forsiden
             </Link>
           </p>
         </div>

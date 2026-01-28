@@ -42,7 +42,7 @@ export default function ServiceList({ services }: ServiceListProps) {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('Are you sure you want to delete this service?')) return
+    if (!confirm('Er du sikker på, at du vil slette denne behandling?')) return
     
     setLoading(id)
     try {
@@ -58,8 +58,8 @@ export default function ServiceList({ services }: ServiceListProps) {
 
   if (services.length === 0) {
     return (
-      <p className="text-slate-500 text-center py-8">
-        No services yet. Add your first service!
+      <p className="text-gray-500 text-center py-8">
+        Ingen behandlinger endnu. Tilføj din første behandling!
       </p>
     )
   }
@@ -71,43 +71,43 @@ export default function ServiceList({ services }: ServiceListProps) {
           key={service.id}
           className={`p-4 rounded-lg border ${
             service.isActive 
-              ? 'bg-slate-700/50 border-slate-600' 
-              : 'bg-slate-800/50 border-slate-700 opacity-60'
+              ? 'bg-white border-gray-200' 
+              : 'bg-gray-50 border-gray-100 opacity-60'
           }`}
         >
           <div className="flex justify-between items-start">
             <div>
-              <h3 className="font-medium text-white flex items-center gap-2">
+              <h3 className="font-medium text-black flex items-center gap-2">
                 {service.name}
                 {!service.isActive && (
-                  <span className="text-xs text-red-400">(inactive)</span>
+                  <span className="text-xs text-red-500 font-semibold">(inaktiv)</span>
                 )}
               </h3>
-              <p className="text-slate-400 text-sm mt-1">
+              <p className="text-gray-500 text-sm mt-1">
                 {service.durationMinutes} min • {Number(service.price)} kr
               </p>
               {service.description && (
-                <p className="text-slate-500 text-sm mt-1">{service.description}</p>
+                <p className="text-gray-400 text-sm mt-1">{service.description}</p>
               )}
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => handleToggle(service.id, service.isActive)}
                 disabled={loading === service.id}
-                className={`px-3 py-1 rounded text-sm ${
+                className={`px-3 py-1 rounded text-sm font-medium ${
                   service.isActive
-                    ? 'bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30'
-                    : 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
+                    ? 'bg-yellow-50 text-yellow-600 hover:bg-yellow-100'
+                    : 'bg-green-50 text-green-600 hover:bg-green-100'
                 } disabled:opacity-50`}
               >
-                {service.isActive ? 'Disable' : 'Enable'}
+                {service.isActive ? 'Deaktiver' : 'Aktiver'}
               </button>
               <button
                 onClick={() => handleDelete(service.id)}
                 disabled={loading === service.id}
-                className="px-3 py-1 bg-red-500/20 text-red-400 rounded text-sm hover:bg-red-500/30 disabled:opacity-50"
+                className="px-3 py-1 bg-red-50 text-red-600 rounded text-sm hover:bg-red-100 disabled:opacity-50 font-medium"
               >
-                Delete
+                Slet
               </button>
             </div>
           </div>

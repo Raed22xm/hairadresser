@@ -49,7 +49,7 @@ export default function BlockedSlotForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-gray-700 mb-2 text-sm font-medium">Date *</label>
+        <label className="block text-gray-700 mb-2 text-sm font-medium">Dato *</label>
         <input
           type="date"
           value={form.date}
@@ -68,14 +68,14 @@ export default function BlockedSlotForm() {
             onChange={(e) => setForm(prev => ({ ...prev, allDay: e.target.checked }))}
             className="rounded border-gray-300 text-black focus:ring-black"
           />
-          <span className="text-sm">Block entire day</span>
+          <span className="text-sm">Bloker hele dagen</span>
         </label>
       </div>
 
       {!form.allDay && (
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-gray-700 mb-2 text-sm font-medium">Start Time</label>
+            <label className="block text-gray-700 mb-2 text-sm font-medium">Starttid</label>
             <input
               type="time"
               value={form.startTime}
@@ -84,7 +84,7 @@ export default function BlockedSlotForm() {
             />
           </div>
           <div>
-            <label className="block text-gray-700 mb-2 text-sm font-medium">End Time</label>
+            <label className="block text-gray-700 mb-2 text-sm font-medium">Sluttid</label>
             <input
               type="time"
               value={form.endTime}
@@ -96,13 +96,13 @@ export default function BlockedSlotForm() {
       )}
 
       <div>
-        <label className="block text-gray-700 mb-2 text-sm font-medium">Reason (optional)</label>
+        <label className="block text-gray-700 mb-2 text-sm font-medium">Årsag (valgfri)</label>
         <input
           type="text"
           value={form.reason}
           onChange={(e) => setForm(prev => ({ ...prev, reason: e.target.value }))}
           className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-          placeholder="e.g. Holiday, Vacation"
+          placeholder="f.eks. Ferie, Helligdag"
         />
       </div>
 
@@ -111,7 +111,7 @@ export default function BlockedSlotForm() {
         disabled={loading || !form.date}
         className="w-full py-3 bg-red-50 border border-red-200 text-red-600 rounded-lg font-semibold disabled:opacity-50 transition-all hover:bg-red-100"
       >
-        {loading ? 'Blocking...' : 'Block Date'}
+        {loading ? 'Blokerer...' : 'Bloker Dato'}
       </button>
     </form>
   )

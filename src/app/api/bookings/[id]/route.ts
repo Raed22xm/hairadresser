@@ -104,15 +104,15 @@ export async function PUT(
             }
         }
 
-        // Cancel booking
+        // Update booking status
         const updated = await prisma.booking.update({
             where: { id: booking.id },
-            data: { status: 'cancelled' },
+            data: { status },
         })
 
         return NextResponse.json({
             success: true,
-            message: 'Booking cancelled successfully',
+            message: `Booking ${status} successfully`,
             booking: updated,
         })
     } catch (error) {

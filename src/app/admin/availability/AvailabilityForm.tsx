@@ -84,7 +84,7 @@ export default function AvailabilityForm({
             onChange={(e) => { setStartTime(e.target.value); handleChange(); }}
             className="bg-white border border-gray-300 rounded px-2 py-1 text-black text-sm focus:outline-none focus:border-black"
           />
-          <span className="text-gray-400">to</span>
+          <span className="text-gray-400">til</span>
           <input
             type="time"
             value={endTime}
@@ -101,7 +101,7 @@ export default function AvailabilityForm({
           disabled={loading}
           className="ml-auto px-3 py-1 bg-black text-white rounded text-sm hover:bg-gray-800 disabled:opacity-50"
         >
-          {loading ? '...' : 'Save'}
+          {loading ? '...' : 'Gem'}
         </button>
       )}
     </div>

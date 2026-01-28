@@ -11,6 +11,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/db'
 import { format, startOfDay, endOfDay, startOfWeek, endOfWeek } from 'date-fns'
+import { da } from 'date-fns/locale'
 import { CalendarIcon, BarChartIcon, DollarIcon, ScissorsBarIcon, ClipboardIcon, EditIcon, ClockIcon, GlobeIcon } from '@/components/Icons'
 
 // Auth check
@@ -103,9 +104,9 @@ export default async function AdminDashboard() {
     <div className="p-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-black">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-black">Oversigt</h1>
         <p className="text-gray-500 mt-1">
-          Welcome back! Here&apos;s what&apos;s happening today.
+          Velkommen tilbage! Her er dagens overblik.
         </p>
       </div>
 
@@ -115,7 +116,7 @@ export default async function AdminDashboard() {
         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-500 text-sm">Today&apos;s Bookings</p>
+              <p className="text-gray-500 text-sm">Dagens Bookinger</p>
               <p className="text-3xl font-bold text-black mt-1">{stats.todayBookings}</p>
             </div>
             <CalendarIcon className="w-8 h-8 text-gray-400" />
@@ -126,7 +127,7 @@ export default async function AdminDashboard() {
         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-500 text-sm">This Week</p>
+              <p className="text-gray-500 text-sm">Denne Uge</p>
               <p className="text-3xl font-bold text-black mt-1">{stats.weekBookings}</p>
             </div>
             <BarChartIcon className="w-8 h-8 text-gray-400" />
@@ -137,8 +138,8 @@ export default async function AdminDashboard() {
         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-500 text-sm">Weekly Revenue</p>
-              <p className="text-3xl font-bold text-black mt-1">{stats.weeklyRevenue} kr</p>
+              <p className="text-gray-500 text-sm">Ugentlig Omsætning</p>
+              <p className="text-3xl font-bold text-black mt-1">{stats.weeklyRevenue} kr.</p>
             </div>
             <DollarIcon className="w-8 h-8 text-gray-400" />
           </div>
@@ -148,7 +149,7 @@ export default async function AdminDashboard() {
         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-500 text-sm">Active Services</p>
+              <p className="text-gray-500 text-sm">Aktive Behandlinger</p>
               <p className="text-3xl font-bold text-black mt-1">{stats.totalServices}</p>
             </div>
             <ScissorsBarIcon className="w-8 h-8 text-gray-400" />
@@ -160,35 +161,35 @@ export default async function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Quick Actions */}
         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-black mb-4">Quick Actions</h2>
+          <h2 className="text-xl font-semibold text-black mb-4">Hurtige Handlinger</h2>
           <div className="grid grid-cols-2 gap-3">
             <Link
               href="/admin/bookings"
               className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-black hover:text-white transition-all group border border-gray-100"
             >
               <ClipboardIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-              <span className="font-medium">View Bookings</span>
+              <span className="font-medium">Se Bookinger</span>
             </Link>
             <Link
               href="/admin/services"
               className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-black hover:text-white transition-all group border border-gray-100"
             >
               <EditIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-              <span className="font-medium">Edit Services</span>
+              <span className="font-medium">Rediger Behandlinger</span>
             </Link>
             <Link
               href="/admin/availability"
               className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-black hover:text-white transition-all group border border-gray-100"
             >
               <ClockIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-              <span className="font-medium">Set Hours</span>
+              <span className="font-medium">Sæt Åbningstider</span>
             </Link>
             <Link
               href="/"
               className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-black hover:text-white transition-all group border border-gray-100"
             >
               <GlobeIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-              <span className="font-medium">View Website</span>
+              <span className="font-medium">Se Hjemmeside</span>
             </Link>
           </div>
         </div>
@@ -196,9 +197,9 @@ export default async function AdminDashboard() {
         {/* Upcoming Bookings */}
         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-black">Upcoming Bookings</h2>
+            <h2 className="text-xl font-semibold text-black">Kommende Bookinger</h2>
             <Link href="/admin/bookings" className="text-gray-500 text-sm hover:text-black font-medium hover:underline">
-              View all →
+              Se alle →
             </Link>
           </div>
           
@@ -214,14 +215,14 @@ export default async function AdminDashboard() {
                     <p className="text-gray-500 text-sm">{booking.service.name}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-black font-medium">{format(new Date(booking.date), 'MMM d')}</p>
+                    <p className="text-black font-medium text-sm capitalize">{format(new Date(booking.date), 'd. MMM', { locale: da })}</p>
                     <p className="text-gray-500 text-sm">{booking.startTime}</p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-gray-400 text-center py-8 border border-dashed border-gray-200 rounded-lg">No upcoming bookings</p>
+            <p className="text-gray-400 text-center py-8 border border-dashed border-gray-200 rounded-lg">Ingen kommende bookinger</p>
           )}
         </div>
       </div>

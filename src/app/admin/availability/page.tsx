@@ -9,8 +9,10 @@
 import { prisma } from '@/lib/db'
 import AvailabilityForm from './AvailabilityForm'
 import BlockedSlotForm from './BlockedSlotForm'
+import { format } from 'date-fns'
+import { da } from 'date-fns/locale'
 
-const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const DAYS = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag']
 
 /**
  * Get availability and blocked slots
@@ -51,16 +53,16 @@ export default async function AdminAvailabilityPage() {
     <div className="p-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white">Availability</h1>
-        <p className="text-slate-400 mt-1">
-          Set your opening hours and block specific dates
+        <h1 className="text-3xl font-bold text-black">Åbningstider</h1>
+        <p className="text-gray-500 mt-1">
+          Indstil dine åbningstider og bloker specifikke datoer (f.eks. ferie)
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Weekly Schedule */}
-        <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
-          <h2 className="text-xl font-semibold text-white mb-4">Weekly Schedule</h2>
+        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+          <h2 className="text-xl font-semibold text-black mb-4">Ugentlig Tidsplan</h2>
           
           <div className="space-y-3">
             {DAYS.map((day, index) => {
@@ -82,54 +84,50 @@ export default async function AdminAvailabilityPage() {
         {/* Block Dates */}
         <div className="space-y-6">
           {/* Add Block */}
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
-            <h2 className="text-xl font-semibold text-white mb-4">Block a Date</h2>
-            <p className="text-slate-400 text-sm mb-4">
-              Block specific dates for vacation, holidays, or other closures.
+          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-black mb-4">Bloker en Dato</h2>
+            <p className="text-gray-500 text-sm mb-4">
+              Bloker specifikke datoer for ferie, helligdage eller andre lukkedage.
             </p>
             <BlockedSlotForm />
           </div>
 
           {/* Blocked Dates List */}
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
-            <h2 className="text-xl font-semibold text-white mb-4">Blocked Dates</h2>
+          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-black mb-4">Blokerede Datoer</h2>
             
             {blockedSlots.length > 0 ? (
               <div className="space-y-2">
                 {blockedSlots.map((slot) => (
                   <div
                     key={slot.id}
-                    className="flex justify-between items-center p-3 bg-slate-700/50 rounded-lg"
+                    className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-100"
                   >
                     <div>
-                      <p className="text-white">
-                        {new Date(slot.date).toLocaleDateString('en-US', {
-                          weekday: 'short',
-                          month: 'short',
-                          day: 'numeric',
-                        })}
+                      <p className="text-black font-medium text-sm capitalize">
+                        {format(new Date(slot.date), 'EEEE d. MMMM', { locale: da })}
                       </p>
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-gray-500 text-sm">
                         {slot.startTime && slot.endTime
                           ? `${slot.startTime} - ${slot.endTime}`
-                          : 'All day'}
+                          : 'Hele dagen'}
                         {slot.reason && ` • ${slot.reason}`}
                       </p>
                     </div>
                     <form action={`/api/blocked-slots/${slot.id}`} method="DELETE">
                       <button
                         type="submit"
-                        className="text-red-400 hover:text-red-300 text-sm"
+                        className="text-red-500 hover:text-red-700 text-sm font-medium transition-colors"
                       >
-                        Remove
+                        Fjern
                       </button>
                     </form>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-slate-500 text-center py-4">
-                No blocked dates
+              <p className="text-gray-400 text-center py-4 border border-dashed border-gray-200 rounded-lg">
+                Ingen blokerede datoer
               </p>
             )}
           </div>

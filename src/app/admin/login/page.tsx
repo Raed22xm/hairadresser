@@ -10,6 +10,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { ScissorsIcon } from '@/components/Icons'
 
 export default function AdminLoginPage() {
@@ -52,12 +53,12 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-3">
+          <Link href="/" className="inline-flex items-center justify-center gap-3 mb-3 hover:opacity-80 transition-opacity">
             <div className="w-10 h-10 text-black">
               <ScissorsIcon className="w-full h-full" />
             </div>
-            <h1 className="text-4xl font-bold text-black">Hairadresser</h1>
-          </div>
+            <h1 className="text-4xl font-bold text-black">Frisør Glostrup</h1>
+          </Link>
           <p className="text-gray-600 font-medium">Admin Login</p>
         </div>
 

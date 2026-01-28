@@ -31,7 +31,7 @@ export default async function HomePage() {
               <ScissorsIcon className="w-full h-full" />
             </div>
             <span className="text-xl font-bold tracking-tight group-hover:text-gray-700 transition-colors">
-                {hairdresser?.salonName || 'Hairadresser'}
+                {hairdresser?.salonName || 'Frisør Glostrup'}
             </span>
           </Link>
 
@@ -41,7 +41,7 @@ export default async function HomePage() {
               href="/account"
               className="text-sm font-medium text-gray-600 hover:text-black transition-colors"
             >
-              My Account
+              Min Konto
             </Link>
           </nav>
         </div>
@@ -69,10 +69,10 @@ export default async function HomePage() {
                 {/* Hero Text */}
                 <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
                     <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-black drop-shadow-sm">
-                        Style & Elegance.
+                        Stil & Elegance.
                     </h1>
                     <p className="text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
-                        Experience premium hair care in the heart of Glostrup.
+                        Oplev førsteklasses hårpleje i hjertet af Glostrup.
                     </p>
                 </div>
 
@@ -94,11 +94,11 @@ export default async function HomePage() {
                                 className="absolute inset-0 w-full h-full object-cover grayscale brightness-90 group-hover:brightness-110 group-hover:scale-105 transition-all duration-700"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
-                                <h3 className="text-3xl font-bold mb-2">Precision Styling</h3>
-                                <p className="text-gray-300">Masterful fade cuts and beard grooming for the modern gentleman.</p>
+                                <h3 className="text-3xl font-bold mb-2">Præcision & Stil</h3>
+                                <p className="text-gray-300">Mesterlige fade-klipninger og skægpleje til den moderne herre.</p>
                                 <div className="mt-4 flex gap-2">
-                                    <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium">Fade Cut</span>
-                                    <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium">Beard Trim</span>
+                                    <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium">Fade</span>
+                                    <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium">Skægtrimning</span>
                                 </div>
                             </div>
                         </div>
@@ -128,18 +128,18 @@ export default async function HomePage() {
             {/* Info Footer */}
             <div className="mt-20 grid md:grid-cols-3 gap-8 text-center text-sm text-gray-500 border-t border-gray-100 pt-12">
                 <div>
-                    <h3 className="font-semibold text-black mb-2">Location</h3>
-                    <p>{hairdresser?.address || 'Copenhagen, Denmark'}</p>
+                    <h3 className="font-semibold text-black mb-2">Lokation</h3>
+                    <p>{hairdresser?.address || 'Glostrup, Danmark'}</p>
                 </div>
                 <div>
-                    <h3 className="font-semibold text-black mb-2">Hours</h3>
-                    <p>Mon-Fri: 09:00 - 17:00</p>
-                    <p>Sat: 10:00 - 14:00</p>
+                    <h3 className="font-semibold text-black mb-2">Åbningstider</h3>
+                    <p>Man-Fre: 09:00 - 17:00</p>
+                    <p>Lør: 10:00 - 14:00</p>
                 </div>
                 <div>
-                    <h3 className="font-semibold text-black mb-2">Contact</h3>
+                    <h3 className="font-semibold text-black mb-2">Kontakt</h3>
                     <p>{hairdresser?.phone || '+45 12 34 56 78'}</p>
-                    <p>{hairdresser?.email || 'hello@hairadresser.dk'}</p>
+                    <p>{hairdresser?.email || 'kontakt@hairadresser.dk'}</p>
                 </div>
             </div>
         </div>
@@ -151,7 +151,7 @@ export default async function HomePage() {
           ======================================== */}
       <footer className="bg-gray-50 border-t border-gray-100 py-8">
         <div className="max-w-6xl mx-auto px-4 text-center text-gray-400 text-sm">
-          <p>© {new Date().getFullYear()} {hairdresser?.salonName || 'Hairadresser'}. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {hairdresser?.salonName || 'Hairadresser'}. Alle rettigheder forbeholdes.</p>
         </div>
       </footer>
     </div>

@@ -24,6 +24,7 @@ import {
     isBefore,
     isAfter
 } from 'date-fns'
+import { da } from 'date-fns/locale'
 
 interface CalendarProps {
     selectedDate: Date | null
@@ -58,8 +59,8 @@ export default function Calendar({
                 >
                     ←
                 </button>
-                <h3 className="text-lg font-semibold text-black">
-                    {format(currentMonth, 'MMMM yyyy')}
+                <h3 className="text-lg font-semibold text-black capitalize">
+                    {format(currentMonth, 'MMMM yyyy', { locale: da })}
                 </h3>
                 <button
                     onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
@@ -75,7 +76,7 @@ export default function Calendar({
      * Renders the weekday headers
      */
     function renderDaysOfWeek() {
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        const days = ['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør']
         return (
             <div className="grid grid-cols-7 mb-2">
                 {days.map((day) => (
@@ -93,8 +94,8 @@ export default function Calendar({
     function renderCells() {
         const monthStart = startOfMonth(currentMonth)
         const monthEnd = endOfMonth(monthStart)
-        const startDate = startOfWeek(monthStart)
-        const endDate = endOfWeek(monthEnd)
+        const startDate = startOfWeek(monthStart, { weekStartsOn: 1 }) // Monday start
+        const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 }) // Monday start
 
         const rows = []
         let days = []
@@ -155,11 +156,11 @@ export default function Calendar({
             <div className="mt-4 flex items-center gap-4 text-xs text-gray-500">
                 <div className="flex items-center gap-1">
                     <div className="w-3 h-3 rounded ring-2 ring-black"></div>
-                    <span>Today</span>
+                    <span>I dag</span>
                 </div>
                 <div className="flex items-center gap-1">
                     <div className="w-3 h-3 rounded bg-black"></div>
-                    <span>Selected</span>
+                    <span>Valgt</span>
                 </div>
             </div>
         </div>

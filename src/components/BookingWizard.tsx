@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Calendar from '@/components/Calendar'
 import { format, addDays } from 'date-fns'
+import { da } from 'date-fns/locale'
 import { CheckmarkIcon, WarningIcon, ClockIcon, SpinnerIcon } from '@/components/Icons'
 
 // Types
@@ -181,15 +182,15 @@ export default function BookingWizard() {
         const errors: ValidationErrors = {}
 
         if (!booking.customerName.trim()) {
-            errors.customerName = 'Please enter your name'
+            errors.customerName = 'Indtast venligst dit navn'
         } else if (booking.customerName.trim().length < 2) {
-            errors.customerName = 'Name must be at least 2 characters'
+            errors.customerName = 'Navnet skal være mindst 2 tegn'
         }
 
         if (!booking.customerEmail.trim()) {
-            errors.customerEmail = 'Please enter your email address'
+            errors.customerEmail = 'Indtast venligst din email'
         } else if (!isValidEmail(booking.customerEmail)) {
-            errors.customerEmail = 'Please enter a valid email (e.g., john@example.com)'
+            errors.customerEmail = 'Indtast venligst en gyldig email (f.eks. jens@email.dk)'
         }
 
         setValidationErrors(errors)
@@ -250,10 +251,10 @@ export default function BookingWizard() {
                                    )}
                                 </div>
                                 <span className={`text-xs font-semibold mt-2 text-center transition-colors ${step >= s ? 'text-black' : 'text-gray-400'}`}>
-                                   {s === 1 && 'Service'}
-                                   {s === 2 && 'Time'}
-                                   {s === 3 && 'Details'}
-                                   {s === 4 && 'Review'}
+                                   {s === 1 && 'Behandling'}
+                                   {s === 2 && 'Tid'}
+                                   {s === 3 && 'Detaljer'}
+                                   {s === 4 && 'Godkend'}
                                 </span>
                              </div>
                         ))}
@@ -274,8 +275,8 @@ export default function BookingWizard() {
                 {step === 1 && (
                     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl font-bold mb-3">Select a Service</h2>
-                            <p className="text-gray-600 text-base">Choose the perfect treatment for you</p>
+                            <h2 className="text-3xl font-bold mb-3">Vælg Behandling</h2>
+                            <p className="text-gray-600 text-base">Vælg den perfekte behandling til dig</p>
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-4">
@@ -296,7 +297,7 @@ export default function BookingWizard() {
                                     <p className="text-gray-600 text-sm mb-4 line-clamp-2">{service.description}</p>
                                     <div className="flex items-center gap-2 text-xs font-semibold text-gray-600 bg-gray-100 w-fit px-3 py-2 rounded-lg group-hover:bg-gray-200 transition-colors">
                                         <ClockIcon className="w-4 h-4" />
-                                        <span>{service.durationMinutes} minutes</span>
+                                        <span>{service.durationMinutes} minutter</span>
                                     </div>
                                 </button>
                             ))}
@@ -308,7 +309,7 @@ export default function BookingWizard() {
                 {step === 2 && (
                     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl font-bold mb-3">Choose Your Appointment</h2>
+                            <h2 className="text-3xl font-bold mb-3">Vælg Tidspunkt</h2>
                             <p className="text-gray-600 font-medium">
                                 {booking.serviceName} <span className="text-black font-bold">• {booking.servicePrice} kr</span>
                             </p>
@@ -317,7 +318,7 @@ export default function BookingWizard() {
                         {/* Quick Book Section */}
                         {quickSlots.length > 0 && !showCalendar && (
                             <div className="mb-10">
-                                <h3 className="font-bold text-gray-900 text-lg mb-5">Next Available Times</h3>
+                                <h3 className="font-bold text-gray-900 text-lg mb-5">Næste Ledige Tider</h3>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                     {quickSlots.map((slot, idx) => (
                                         <button
@@ -340,7 +341,7 @@ export default function BookingWizard() {
                                         onClick={() => setShowCalendar(true)}
                                         className="text-gray-700 hover:text-black text-sm font-semibold underline underline-offset-4 transition-colors"
                                     >
-                                        View full calendar
+                                        Se kalender
                                     </button>
                                 </div>
                             </div>
@@ -361,7 +362,7 @@ export default function BookingWizard() {
                                 {selectedDate && (
                                     <div className="mt-8 animate-in slide-in-from-top-2">
                                         <h3 className="text-sm font-bold text-gray-600 mb-5 text-center uppercase tracking-wider">
-                                            Available times
+                                            Ledige tider
                                         </h3>
 
                                         {loading ? (
@@ -382,7 +383,7 @@ export default function BookingWizard() {
                                             </div>
                                         ) : (
                                             <div className="bg-gray-100 rounded-xl p-6 text-center text-sm text-gray-600 font-medium">
-                                                No available slots for this date. Please try another day.
+                                                Ingen ledige tider denne dag. Prøv venligst en anden dag.
                                             </div>
                                         )}
                                     </div>
@@ -394,7 +395,7 @@ export default function BookingWizard() {
                                             onClick={() => setShowCalendar(false)}
                                             className="text-gray-700 hover:text-black text-sm font-semibold underline underline-offset-4"
                                         >
-                                            Back to quick view
+                                            Tilbage til hurtig visning
                                         </button>
                                     </div>
                                 )}
@@ -406,7 +407,7 @@ export default function BookingWizard() {
                                 onClick={() => { setStep(1); setSelectedDate(null); setAvailableSlots([]); setShowCalendar(false); }}
                                 className="text-gray-600 hover:text-black text-sm font-semibold transition-colors"
                             >
-                                ← Change Service
+                                ← Skift Behandling
                             </button>
                         </div>
                     </div>
@@ -416,15 +417,15 @@ export default function BookingWizard() {
                 {step === 3 && (
                     <div className="max-w-md mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl font-bold mb-3">Your Information</h2>
+                            <h2 className="text-3xl font-bold mb-3">Dine Oplysninger</h2>
                             <div className="inline-block bg-black/5 px-4 py-2 rounded-full text-sm text-gray-700 font-medium">
-                                {booking.serviceName} • {selectedDate && format(selectedDate, 'MMM d')} @ {booking.startTime}
+                                {booking.serviceName} • {selectedDate && format(selectedDate, 'd. MMM', { locale: da })} @ {booking.startTime}
                             </div>
                         </div>
 
                         <div className="space-y-5">
                             <div>
-                                <label className="block text-sm font-bold text-gray-900 mb-2">Full Name *</label>
+                                <label className="block text-sm font-bold text-gray-900 mb-2">Fulde Navn *</label>
                                 <input
                                     type="text"
                                     value={booking.customerName}
@@ -437,7 +438,7 @@ export default function BookingWizard() {
                                             ? 'border-red-300 bg-red-50 focus:border-red-500'
                                             : 'border-gray-200 bg-white focus:border-black'
                                     }`}
-                                    placeholder="John Doe"
+                                    placeholder="Jens Hansen"
                                     autoFocus
                                 />
                                 {validationErrors.customerName && (
@@ -449,7 +450,7 @@ export default function BookingWizard() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-bold text-gray-900 mb-2">Email Address *</label>
+                                <label className="block text-sm font-bold text-gray-900 mb-2">Email Adresse *</label>
                                 <input
                                     type="email"
                                     value={booking.customerEmail}
@@ -473,7 +474,7 @@ export default function BookingWizard() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-bold text-gray-900 mb-2">Phone Number <span className="font-normal text-gray-500">(Optional)</span></label>
+                                <label className="block text-sm font-bold text-gray-900 mb-2">Telefonnummer <span className="font-normal text-gray-500">(Valgfrit)</span></label>
                                 <input
                                     type="tel"
                                     value={booking.customerPhone}
@@ -492,7 +493,7 @@ export default function BookingWizard() {
                                     className="w-5 h-5 mt-0.5 rounded border-2 border-gray-300 text-black focus:ring-black cursor-pointer accent-black"
                                 />
                                 <label htmlFor="terms" className="text-sm text-gray-700 cursor-pointer">
-                                    I agree to the cancellation policy and acknowledge that no refunds are available for cancelled bookings.
+                                    Jeg accepterer afbudspolitikken og bekræfter, at der ikke ydes refusion ved aflysning.
                                 </label>
                             </div>
                         </div>
@@ -502,14 +503,14 @@ export default function BookingWizard() {
                                 onClick={() => setStep(2)}
                                 className="px-6 py-3 border-2 border-gray-300 rounded-xl text-gray-700 font-semibold hover:border-black hover:bg-gray-50 transition-all"
                             >
-                                Back
+                                Tilbage
                             </button>
                             <button
                                 onClick={() => setStep(4)}
                                 disabled={!agreedToTerms}
                                 className="flex-1 py-3 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
                             >
-                                Review Booking
+                                Gennemse Booking
                             </button>
                         </div>
                     </div>
@@ -519,44 +520,44 @@ export default function BookingWizard() {
                 {step === 4 && !bookingResult && (
                     <div className="max-w-md mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl font-bold mb-2">Review Your Booking</h2>
-                            <p className="text-gray-600">Please verify all details before confirming</p>
+                            <h2 className="text-3xl font-bold mb-2">Gennemse Din Booking</h2>
+                            <p className="text-gray-600">Tjek venligst at alle oplysninger er korrekte</p>
                         </div>
 
                         <div className="space-y-4">
                             {/* Service Details */}
                             <div className="bg-gradient-to-br from-black/5 to-black/3 rounded-2xl p-6 border border-gray-200">
-                                <h3 className="text-sm font-bold text-gray-600 mb-3 uppercase tracking-wider">Service</h3>
+                                <h3 className="text-sm font-bold text-gray-600 mb-3 uppercase tracking-wider">Behandling</h3>
                                 <p className="text-lg font-bold text-black mb-2">{booking.serviceName}</p>
                                 <div className="flex justify-between text-sm text-gray-700">
-                                    <span className="font-medium">Duration:</span>
-                                    <span>{booking.serviceDuration} minutes</span>
+                                    <span className="font-medium">Varighed:</span>
+                                    <span>{booking.serviceDuration} minutter</span>
                                 </div>
                                 <div className="flex justify-between text-sm text-gray-700 mt-2">
-                                    <span className="font-medium">Price:</span>
+                                    <span className="font-medium">Pris:</span>
                                     <span className="font-bold text-black">{booking.servicePrice} kr</span>
                                 </div>
                             </div>
 
                             {/* Appointment Details */}
                             <div className="bg-gradient-to-br from-black/5 to-black/3 rounded-2xl p-6 border border-gray-200">
-                                <h3 className="text-sm font-bold text-gray-600 mb-3 uppercase tracking-wider">Appointment</h3>
+                                <h3 className="text-sm font-bold text-gray-600 mb-3 uppercase tracking-wider">Tid</h3>
                                 <div className="flex justify-between text-sm text-gray-700 mb-2">
-                                    <span className="font-medium">Date:</span>
-                                    <span>{selectedDate && format(selectedDate, 'EEEE, MMMM d, yyyy')}</span>
+                                    <span className="font-medium">Dato:</span>
+                                    <span>{selectedDate && format(selectedDate, 'EEEE d. MMMM yyyy', { locale: da })}</span>
                                 </div>
                                 <div className="flex justify-between text-sm text-gray-700">
-                                    <span className="font-medium">Time:</span>
+                                    <span className="font-medium">Tidspunkt:</span>
                                     <span className="font-bold text-black">{booking.startTime}</span>
                                 </div>
                             </div>
 
                             {/* Customer Details */}
                             <div className="bg-gradient-to-br from-black/5 to-black/3 rounded-2xl p-6 border border-gray-200">
-                                <h3 className="text-sm font-bold text-gray-600 mb-3 uppercase tracking-wider">Your Information</h3>
+                                <h3 className="text-sm font-bold text-gray-600 mb-3 uppercase tracking-wider">Dine Oplysninger</h3>
                                 <div className="space-y-2">
                                     <div className="flex justify-between text-sm text-gray-700">
-                                        <span className="font-medium">Name:</span>
+                                        <span className="font-medium">Navn:</span>
                                         <span>{booking.customerName}</span>
                                     </div>
                                     <div className="flex justify-between text-sm text-gray-700">
@@ -578,7 +579,7 @@ export default function BookingWizard() {
                                 onClick={() => setStep(3)}
                                 className="px-6 py-3 border-2 border-gray-300 rounded-xl text-gray-700 font-semibold hover:border-black hover:bg-gray-50 transition-all"
                             >
-                                Edit
+                                Ret
                             </button>
                             <button
                                 onClick={submitBooking}
@@ -588,12 +589,12 @@ export default function BookingWizard() {
                                 {loading ? (
                                     <>
                                         <SpinnerIcon className="w-4 h-4" />
-                                        Confirming...
+                                        Bekræfter...
                                     </>
                                 ) : (
                                     <>
                                         <CheckmarkIcon className="w-4 h-4" />
-                                        Confirm Appointment
+                                        Bekræft Tid
                                     </>
                                 )}
                             </button>
@@ -607,17 +608,17 @@ export default function BookingWizard() {
                         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-white">
                             <CheckmarkIcon className="w-10 h-10 text-green-600" />
                         </div>
-                        <h2 className="text-3xl font-bold mb-2">Booking Confirmed!</h2>
-                        <p className="text-gray-600 mb-8">A confirmation email has been sent to <span className="font-semibold">{booking.customerEmail}</span></p>
+                        <h2 className="text-3xl font-bold mb-2">Booking Bekræftet!</h2>
+                        <p className="text-gray-600 mb-8">En bekræftelse er sendt til <span className="font-semibold">{booking.customerEmail}</span></p>
 
                         <div className="bg-gradient-to-br from-black/5 to-black/3 rounded-2xl p-6 mb-8 border border-gray-200 text-left space-y-4">
                             <div className="flex justify-between items-center">
-                                <span className="text-gray-700 font-medium">Service</span>
+                                <span className="text-gray-700 font-medium">Behandling</span>
                                 <span className="font-bold text-black">{booking.serviceName}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-gray-700 font-medium">Date & Time</span>
-                                <span className="font-bold text-black">{selectedDate && format(selectedDate, 'MMM d')} at {booking.startTime}</span>
+                                <span className="text-gray-700 font-medium">Dato & Tid</span>
+                                <span className="font-bold text-black">{selectedDate && format(selectedDate, 'd. MMM', { locale: da })} kl. {booking.startTime}</span>
                             </div>
                             <div className="border-t border-gray-300 pt-4 flex justify-between items-center">
                                 <span className="text-gray-700 font-bold">Total</span>
@@ -625,7 +626,7 @@ export default function BookingWizard() {
                             </div>
                         </div>
 
-                        <p className="text-sm text-gray-600 mb-6">Your booking reference will be in your confirmation email.</p>
+                        <p className="text-sm text-gray-600 mb-6">Dit booking-nummer fremgår af bekræftelsesmailen.</p>
 
                         <button
                             onClick={() => {
@@ -646,7 +647,7 @@ export default function BookingWizard() {
                             }}
                             className="bg-black text-white px-8 py-3 rounded-xl font-semibold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
                         >
-                            Book Another Service
+                            Book Ny Tid
                         </button>
                     </div>
                 )}

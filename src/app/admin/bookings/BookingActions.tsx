@@ -19,7 +19,7 @@ export default function BookingActions({ bookingId, status }: BookingActionsProp
   const [loading, setLoading] = useState(false)
 
   async function handleCancel() {
-    if (!confirm('Are you sure you want to cancel this booking?')) return
+    if (!confirm('Er du sikker på, at du vil aflyse denne booking?')) return
     
     setLoading(true)
     try {
@@ -49,7 +49,7 @@ export default function BookingActions({ bookingId, status }: BookingActionsProp
   }
 
   if (status !== 'confirmed') {
-    return <span className="text-slate-500 text-sm">-</span>
+    return <span className="text-gray-400 text-sm">-</span>
   }
 
   return (
@@ -57,16 +57,16 @@ export default function BookingActions({ bookingId, status }: BookingActionsProp
       <button
         onClick={handleComplete}
         disabled={loading}
-        className="px-3 py-1 bg-green-500/20 text-green-400 rounded text-sm hover:bg-green-500/30 disabled:opacity-50"
+        className="px-3 py-1 bg-green-100 text-green-600 rounded text-sm hover:bg-green-200 disabled:opacity-50 font-medium transition-colors"
       >
-        ✓ Complete
+        ✓ Afslut
       </button>
       <button
         onClick={handleCancel}
         disabled={loading}
-        className="px-3 py-1 bg-red-500/20 text-red-400 rounded text-sm hover:bg-red-500/30 disabled:opacity-50"
+        className="px-3 py-1 bg-red-50 text-red-600 rounded text-sm hover:bg-red-100 disabled:opacity-50 font-medium transition-colors"
       >
-        ✕ Cancel
+        ✕ Aflys
       </button>
     </div>
   )

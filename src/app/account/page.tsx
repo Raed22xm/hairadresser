@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { format } from 'date-fns'
+import { da } from 'date-fns/locale'
 import { ScissorsIcon, CalendarIcon, UserIcon } from '@/components/Icons'
 
 interface Customer {
@@ -99,13 +100,13 @@ export default function AccountPage() {
             <div className="w-5 h-5">
               <ScissorsIcon className="w-full h-full" />
             </div>
-            Hairadresser
+            Frisør Glostrup
           </Link>
           <button
             onClick={handleLogout}
             className="text-sm font-medium text-gray-500 hover:text-black transition-colors"
           >
-            Logout
+            Log ud
           </button>
         </div>
       </nav>
@@ -133,7 +134,7 @@ export default function AccountPage() {
               href="/"
               className="px-6 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
             >
-              Book New Appointment
+              Book Ny Tid
             </Link>
           </div>
         </div>
@@ -141,7 +142,7 @@ export default function AccountPage() {
         {/* Appointments Section */}
         <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
           <CalendarIcon className="w-6 h-6" />
-          Your Appointments
+          Dine Tider
         </h2>
 
         {/* Upcoming */}
@@ -151,24 +152,24 @@ export default function AccountPage() {
                     <div key={booking.id} className="bg-white border border-gray-200 rounded-xl p-6 flex justify-between items-center shadow-sm hover:shadow-md transition-shadow">
                         <div>
                             <h3 className="font-bold text-lg">{booking.service.name}</h3>
-                            <p className="text-gray-500">
-                                {new Date(booking.date).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
+                            <p className="text-gray-500 capitalize">
+                                {new Date(booking.date).toLocaleDateString('da-DK', { weekday: 'long', month: 'long', day: 'numeric' })}
                                 <span className="mx-2">•</span>
                                 {booking.startTime}
                             </p>
                         </div>
                         <div className="text-right">
-                             <p className="font-bold text-lg text-black">{booking.service.price} kr</p>
+                             <p className="font-bold text-lg text-black">{booking.service.price} kr.</p>
                              <span className="inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-medium mt-1">
-                                Confirmed
+                                Bekræftet
                              </span>
                         </div>
                     </div>
                 ))
             ) : (
                 <div className="bg-white border border-dashed border-gray-300 rounded-xl p-12 text-center">
-                    <p className="text-gray-500 mb-4">No upcoming appointments</p>
-                    <Link href="/" className="text-black font-semibold hover:underline">Book one now</Link>
+                    <p className="text-gray-500 mb-4">Ingen kommende tider</p>
+                    <Link href="/" className="text-black font-semibold hover:underline">Book en tid nu</Link>
                 </div>
             )}
         </div>
@@ -176,20 +177,20 @@ export default function AccountPage() {
         {/* Past */}
         {pastBookings.length > 0 && (
             <div className="opacity-60 hover:opacity-100 transition-opacity">
-                <h3 className="text-lg font-bold mb-4 text-gray-500">Past History</h3>
+                <h3 className="text-lg font-bold mb-4 text-gray-500">Tidligere Tider</h3>
                 <div className="space-y-4">
                     {pastBookings.map(booking => (
                         <div key={booking.id} className="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-center">
                             <div>
                                 <h4 className="font-medium">{booking.service.name}</h4>
-                                <p className="text-sm text-gray-500">
-                                    {new Date(booking.date).toLocaleDateString()}
+                                <p className="text-sm text-gray-500 capitalize">
+                                    {new Date(booking.date).toLocaleDateString('da-DK', { weekday: 'long', day: 'numeric', month: 'long' })}
                                 </p>
                             </div>
                             <span className={`text-xs px-2 py-1 rounded-full ${
                                 booking.status === 'completed' ? 'bg-gray-100 text-gray-600' : 'bg-red-50 text-red-500'
                             }`}>
-                                {booking.status}
+                                {booking.status === 'completed' ? 'Gennemført' : 'Aflyst'}
                             </span>
                         </div>
                     ))}
