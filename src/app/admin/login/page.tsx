@@ -49,35 +49,41 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] bg-[#0f0f0f] flex items-center justify-center p-4 overflow-y-auto">
       <div className="w-full max-w-md">
         {/* Logo */}
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center justify-center gap-3 mb-3 hover:opacity-80 transition-opacity">
-            <div className="w-10 h-10 text-black">
-              <ScissorsIcon className="w-full h-full" />
-            </div>
-            <h1 className="text-4xl font-bold text-black">Frisør Glostrup</h1>
+        <div className="text-center mb-10">
+          <Link href="/" className="inline-flex items-center justify-center gap-3 mb-6 group">
+             <div className="w-12 h-12 flex items-center justify-center border border-[#D4AF37] rounded-full group-hover:bg-[#D4AF37] transition-all duration-300">
+                <ScissorsIcon className="w-6 h-6 fill-[#D4AF37] text-[#D4AF37] group-hover:text-black group-hover:fill-black transition-colors" />
+             </div>
+             <span className="text-2xl font-bold font-serif tracking-widest uppercase text-white group-hover:text-[#D4AF37] transition-colors">
+               Frisør Glostrup
+             </span>
           </Link>
-          <p className="text-gray-600 font-medium">Admin Login</p>
+          <h1 className="text-3xl font-serif text-white mb-2">Admin Panel</h1>
+          <p className="text-gray-400 text-sm font-light tracking-wide">Indtast dine oplysninger for at tilgå kontrolpanelet</p>
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+        <form onSubmit={handleSubmit} className="bg-[#121212] border border-white/10 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37] opacity-5 rounded-full blur-[60px]"></div>
+          
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm">
-              {error}
+            <div className="bg-red-900/20 border border-red-500/50 text-red-200 px-4 py-4 rounded-xl mb-6 text-sm font-medium flex items-center gap-3 relative z-10">
+              <span>⚠️</span>
+              <span>{error}</span>
             </div>
           )}
 
-          <div className="mb-6">
-            <label className="block text-gray-700 mb-2 font-medium">Admin Password</label>
+          <div className="mb-8 relative z-10">
+            <label className="block text-xs font-bold text-[#D4AF37] uppercase tracking-widest mb-3">Admin Adgangskode</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-3 text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-              placeholder="Enter password"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all"
+              placeholder="Indtast adgangskode"
               autoFocus
             />
           </div>
@@ -85,15 +91,21 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading || !password}
-            className="w-full py-3 bg-black rounded-lg text-white font-semibold disabled:opacity-50 transition-all hover:bg-gray-800"
+            className="w-full py-4 bg-[#D4AF37] text-black rounded-xl font-bold uppercase tracking-widest hover:bg-[#b5952f] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] relative z-10"
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Logger ind...' : 'Log ind'}
           </button>
 
-          <p className="text-center text-gray-400 text-sm mt-6">
-            Default password: <code className="bg-gray-100 px-2 py-1 rounded text-gray-600">admin123</code>
+          <p className="text-center text-gray-500 text-xs mt-8 relative z-10">
+            Standard adgangskode: <code className="bg-white/10 px-2 py-1 rounded text-[#D4AF37] font-mono ml-1">admin123</code>
           </p>
         </form>
+        
+        <p className="text-center mt-8">
+            <Link href="/" className="text-gray-500 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors mb-4 block">
+              ← Tilbage til Forsiden
+            </Link>
+        </p>
       </div>
     </div>
   )

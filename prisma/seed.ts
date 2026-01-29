@@ -40,7 +40,7 @@ async function main() {
             update: {
                 name: 'Herreklip',
                 description: 'Klassisk klip inkl. vask og styling',
-                imageUrl: '/service-haircut.jpg',
+                imageUrl: '/man-fade.png',
             },
             create: {
                 id: 'service-haircut',
@@ -49,7 +49,7 @@ async function main() {
                 description: 'Klassisk klip inkl. vask og styling',
                 durationMinutes: 30,
                 price: 250,
-                imageUrl: '/service-haircut.jpg',
+                imageUrl: '/man-fade.png',
                 isActive: true,
             },
         }),
@@ -58,7 +58,7 @@ async function main() {
             update: {
                 name: 'Hårfarvning',
                 description: 'Helfarvning med premium produkter',
-                imageUrl: '/service-color.jpg',
+                imageUrl: '/man-crop.png',
             },
             create: {
                 id: 'service-color',
@@ -67,7 +67,7 @@ async function main() {
                 description: 'Helfarvning med premium produkter',
                 durationMinutes: 60,
                 price: 500,
-                imageUrl: '/service-color.jpg',
+                imageUrl: '/man-crop.png',
                 isActive: true,
             },
         }),
@@ -76,7 +76,7 @@ async function main() {
             update: {
                 name: 'Styling',
                 description: 'Professionel styling til enhver lejlighed',
-                imageUrl: '/service-styling.jpg',
+                imageUrl: '/man-sidepart.png',
             },
             create: {
                 id: 'service-styling',
@@ -85,7 +85,62 @@ async function main() {
                 description: 'Professionel styling til enhver lejlighed',
                 durationMinutes: 45,
                 price: 300,
-                imageUrl: '/service-styling.jpg',
+                imageUrl: '/man-sidepart.png',
+                isActive: true,
+            },
+        }),
+        // New Services
+        prisma.service.upsert({
+            where: { id: 'service-child' },
+            update: {
+                name: 'Børneklip',
+                description: 'Klipning for børn under 12 år',
+                imageUrl: '/service-child.jpg',
+            },
+            create: {
+                id: 'service-child',
+                hairdresserId: hairdresser.id,
+                name: 'Børneklip',
+                description: 'Klipning for børn under 12 år',
+                durationMinutes: 30,
+                price: 200,
+                imageUrl: '/service-child.jpg',
+                isActive: true,
+            },
+        }),
+        prisma.service.upsert({
+            where: { id: 'service-pensioner' },
+            update: {
+                name: 'Pensionistklip',
+                description: 'Rabat til pensionister',
+                imageUrl: '/service-pensioner.jpg',
+            },
+            create: {
+                id: 'service-pensioner',
+                hairdresserId: hairdresser.id,
+                name: 'Pensionistklip',
+                description: 'Rabat til pensionister',
+                durationMinutes: 30,
+                price: 200,
+                imageUrl: '/service-pensioner.jpg',
+                isActive: true,
+            },
+        }),
+        prisma.service.upsert({
+            where: { id: 'service-women' },
+            update: {
+                name: 'Dameklip',
+                description: 'Klipning og styling for kvinder',
+                imageUrl: '/service-women.jpg',
+            },
+            create: {
+                id: 'service-women',
+                hairdresserId: hairdresser.id,
+                name: 'Dameklip',
+                description: 'Klipning og styling for kvinder',
+                durationMinutes: 45,
+                price: 400,
+                imageUrl: '/service-women.jpg',
                 isActive: true,
             },
         }),

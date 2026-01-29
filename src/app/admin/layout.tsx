@@ -40,66 +40,68 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-[#0f0f0f] flex text-white font-sans">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 flex flex-col">
+      <aside className="w-72 bg-[#121212] border-r border-white/10 flex flex-col">
         {/* Logo */}
-        <div className="p-6 border-b border-gray-100">
-          <Link href="/admin" className="text-xl font-bold text-black flex items-center gap-2">
-            <div className="w-5 h-5">
-              <ScissorsIcon className="w-full h-full" />
-            </div>
-            Frisør Glostrup
+        <div className="p-8 border-b border-white/10">
+          <Link href="/admin" className=" flex items-center gap-3 group">
+             <div className="w-8 h-8 flex items-center justify-center border border-[#D4AF37] rounded-full group-hover:bg-[#D4AF37] transition-all duration-300">
+                <ScissorsIcon className="w-4 h-4 fill-[#D4AF37] group-hover:fill-black transition-colors" />
+             </div>
+             <div>
+                <span className="font-serif block text-lg font-bold text-white">FRISØR GLOSTRUP</span>
+                <span className="text-[10px] text-[#D4AF37] uppercase tracking-[0.2em] font-bold">Admin Panel</span>
+             </div>
           </Link>
-          <p className="text-xs text-gray-400 mt-2">Admin Panel</p>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-4 space-y-2">
           <Link
             href="/admin"
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-black hover:text-white transition-colors"
+            className="flex items-center gap-4 px-4 py-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
           >
-            <BarChartIcon className="w-5 h-5" />
-            Oversigt
+            <BarChartIcon className="w-5 h-5 group-hover:text-[#D4AF37] transition-colors" />
+            <span className="font-medium text-sm">Oversigt</span>
           </Link>
           <Link
             href="/admin/bookings"
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-black hover:text-white transition-colors"
+            className="flex items-center gap-4 px-4 py-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
           >
-            <CalendarIcon className="w-5 h-5" />
-            Bookinger
+            <CalendarIcon className="w-5 h-5 group-hover:text-[#D4AF37] transition-colors" />
+            <span className="font-medium text-sm">Bookinger</span>
           </Link>
           <Link
             href="/admin/services"
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-black hover:text-white transition-colors"
+            className="flex items-center gap-4 px-4 py-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
           >
-            <ScissorsBarIcon className="w-5 h-5" />
-            Behandlinger
+            <ScissorsBarIcon className="w-5 h-5 group-hover:text-[#D4AF37] transition-colors" />
+            <span className="font-medium text-sm">Behandlinger</span>
           </Link>
           <Link
             href="/admin/availability"
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-black hover:text-white transition-colors"
+            className="flex items-center gap-4 px-4 py-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
           >
-            <ClockIcon className="w-5 h-5" />
-            Åbningstider
+            <ClockIcon className="w-5 h-5 group-hover:text-[#D4AF37] transition-colors" />
+            <span className="font-medium text-sm">Åbningstider</span>
           </Link>
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-100">
+        <div className="p-6 border-t border-white/10 bg-black/20">
           <Link
             href="/"
-            className="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-black transition-colors text-sm"
+            className="flex items-center gap-3 px-2 py-2 text-gray-500 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest mb-4"
           >
             ← Tilbage til Hjemmesiden
           </Link>
           <form action="/api/admin/logout" method="POST">
             <button
               type="submit"
-              className="w-full flex items-center gap-3 px-4 py-2 text-red-500 hover:text-red-600 transition-colors text-sm mt-1"
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-red-900/20 text-red-400 border border-red-900/30 rounded-xl hover:bg-red-900/40 hover:text-red-300 transition-all text-sm font-bold"
             >
-              <LogoutIcon className="w-5 h-5" />
+              <LogoutIcon className="w-4 h-4" />
               Log ud
             </button>
           </form>
@@ -107,7 +109,7 @@ export default async function AdminLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto bg-gray-50">
+      <main className="flex-1 overflow-auto bg-[#0f0f0f]">
         {children}
       </main>
     </div>

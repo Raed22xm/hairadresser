@@ -57,14 +57,14 @@ export default function BookingActions({ bookingId, status }: BookingActionsProp
       <button
         onClick={handleComplete}
         disabled={loading}
-        className="px-3 py-1 bg-green-100 text-green-600 rounded text-sm hover:bg-green-200 disabled:opacity-50 font-medium transition-colors"
+        className="px-3 py-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-blue-500/20 disabled:opacity-50 transition-colors"
       >
         ✓ Afslut
       </button>
       <button
         onClick={handleCancel}
         disabled={loading}
-        className="px-3 py-1 bg-red-50 text-red-600 rounded text-sm hover:bg-red-100 disabled:opacity-50 font-medium transition-colors"
+        className="px-3 py-1.5 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-red-500/20 disabled:opacity-50 transition-colors"
       >
         ✕ Aflys
       </button>

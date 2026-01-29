@@ -52,12 +52,12 @@ export default async function PricingGrid() {
       <div className="max-w-7xl mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: 'var(--color-primary, #D4AF37)' }}>Excellence in Pricing</p>
+          <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: 'var(--color-primary, #D4AF37)' }}>Gennemskuelige Priser</p>
           <h2 className="text-5xl md:text-6xl font-black text-white mb-2">
-            Premium Services
+            Eksklusive Behandlinger
           </h2>
           <h3 className="text-2xl md:text-3xl font-semibold text-white/70">
-            at Competitive Rates
+            til Skarpe Priser
           </h3>
         </div>
 
@@ -111,20 +111,7 @@ export default async function PricingGrid() {
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="text-center mt-16">
-          <Link
-            href="/"
-            className="inline-block px-8 py-4 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl border-2"
-            style={{
-              backgroundColor: 'var(--color-primary, #D4AF37)',
-              color: 'black',
-              borderColor: 'var(--color-primary, #D4AF37)',
-            }}
-          >
-            Book Your Appointment
-          </Link>
-        </div>
+
       </div>
     </section>
   )

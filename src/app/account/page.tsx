@@ -92,38 +92,40 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 text-black">
+    <div className="min-h-screen bg-[#0f0f0f] text-white font-sans">
       {/* Header */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-xl font-bold flex items-center gap-2">
-            <div className="w-5 h-5">
-              <ScissorsIcon className="w-full h-full" />
-            </div>
-            Frisør Glostrup
+      <nav className="bg-[#0f0f0f]/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
+        <div className="max-w-4xl mx-auto px-4 py-6 flex justify-between items-center">
+          <Link href="/" className="text-xl font-bold flex items-center gap-2 group">
+             <div className="w-8 h-8 flex items-center justify-center border border-[#D4AF37] rounded-full group-hover:bg-[#D4AF37] transition-all duration-300">
+                <ScissorsIcon className="w-4 h-4 fill-[#D4AF37] group-hover:fill-black transition-colors" />
+             </div>
+             <span className="font-serif tracking-widest uppercase text-sm">Frisør Glostrup</span>
           </Link>
           <button
             onClick={handleLogout}
-            className="text-sm font-medium text-gray-500 hover:text-black transition-colors"
+            className="text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors"
           >
             Log ud
           </button>
         </div>
       </nav>
 
-      <main className="max-w-4xl mx-auto px-4 py-8">
+      <main className="max-w-4xl mx-auto px-4 py-12">
         {/* Profile Card */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-4">
-              <div className="h-20 w-20 bg-gray-100 rounded-full flex items-center justify-center border border-gray-200 text-gray-400">
+        <div className="bg-[#121212] border border-white/10 rounded-2xl p-8 mb-12 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37] opacity-5 rounded-full blur-[100px] group-hover:opacity-10 transition-opacity"></div>
+          
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
+            <div className="flex items-center gap-6">
+              <div className="h-24 w-24 bg-white/5 rounded-full flex items-center justify-center border border-white/10 text-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.1)]">
                 <UserIcon className="w-10 h-10" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold mb-1">{customer?.name}</h1>
-                <p className="text-gray-500 text-lg">{customer?.email}</p>
+                <h1 className="text-3xl font-serif text-white mb-2">{customer?.name}</h1>
+                <p className="text-gray-400 text-lg">{customer?.email}</p>
                 {customer?.phone && (
-                  <p className="text-gray-400 mt-1 flex items-center gap-1">
+                  <p className="text-[#D4AF37] mt-2 flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
                     <span>📞</span> {customer.phone}
                   </p>
                 )}
@@ -132,7 +134,7 @@ export default function AccountPage() {
             
             <Link
               href="/"
-              className="px-6 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
+              className="px-8 py-4 bg-[#D4AF37] text-black rounded-xl font-bold uppercase tracking-widest hover:bg-[#b5952f] transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)]"
             >
               Book Ny Tid
             </Link>
@@ -140,55 +142,57 @@ export default function AccountPage() {
         </div>
 
         {/* Appointments Section */}
-        <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-          <CalendarIcon className="w-6 h-6" />
+        <h2 className="text-xl font-serif text-white mb-8 flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+             <CalendarIcon className="w-4 h-4 text-[#D4AF37]" />
+          </div>
           Dine Tider
         </h2>
 
         {/* Upcoming */}
-        <div className="space-y-4 mb-12">
+        <div className="space-y-4 mb-16">
             {upcomingBookings.length > 0 ? (
                 upcomingBookings.map(booking => (
-                    <div key={booking.id} className="bg-white border border-gray-200 rounded-xl p-6 flex justify-between items-center shadow-sm hover:shadow-md transition-shadow">
+                    <div key={booking.id} className="bg-[#1a1a1a] border border-white/5 rounded-xl p-6 flex justify-between items-center group hover:border-[#D4AF37]/50 transition-colors">
                         <div>
-                            <h3 className="font-bold text-lg">{booking.service.name}</h3>
-                            <p className="text-gray-500 capitalize">
+                            <h3 className="font-serif text-xl text-white mb-1 group-hover:text-[#D4AF37] transition-colors">{booking.service.name}</h3>
+                            <p className="text-gray-400 capitalize text-sm">
                                 {new Date(booking.date).toLocaleDateString('da-DK', { weekday: 'long', month: 'long', day: 'numeric' })}
-                                <span className="mx-2">•</span>
-                                {booking.startTime}
+                                <span className="mx-2 text-[#D4AF37]">•</span>
+                                <span className="text-white font-mono">{booking.startTime}</span>
                             </p>
                         </div>
                         <div className="text-right">
-                             <p className="font-bold text-lg text-black">{booking.service.price} kr.</p>
-                             <span className="inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-medium mt-1">
+                             <p className="font-bold text-lg text-[#D4AF37] font-mono">{booking.service.price} kr.</p>
+                             <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] uppercase tracking-widest px-3 py-1 rounded-full mt-2">
                                 Bekræftet
                              </span>
                         </div>
                     </div>
                 ))
             ) : (
-                <div className="bg-white border border-dashed border-gray-300 rounded-xl p-12 text-center">
-                    <p className="text-gray-500 mb-4">Ingen kommende tider</p>
-                    <Link href="/" className="text-black font-semibold hover:underline">Book en tid nu</Link>
+                <div className="bg-white/5 border border-dashed border-white/10 rounded-xl p-16 text-center">
+                    <p className="text-gray-500 mb-6 font-serif text-lg">Ingen kommende tider</p>
+                    <Link href="/" className="text-[#D4AF37] hover:text-white font-bold uppercase tracking-widest text-xs border-b border-[#D4AF37] pb-1 hover:border-white transition-all">Book en tid nu</Link>
                 </div>
             )}
         </div>
 
         {/* Past */}
         {pastBookings.length > 0 && (
-            <div className="opacity-60 hover:opacity-100 transition-opacity">
-                <h3 className="text-lg font-bold mb-4 text-gray-500">Tidligere Tider</h3>
+            <div className="opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-6 pl-1">Tidligere Tider</h3>
                 <div className="space-y-4">
                     {pastBookings.map(booking => (
-                        <div key={booking.id} className="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-center">
+                        <div key={booking.id} className="bg-white/5 border border-white/5 rounded-xl p-4 flex justify-between items-center">
                             <div>
-                                <h4 className="font-medium">{booking.service.name}</h4>
+                                <h4 className="font-bold text-gray-300">{booking.service.name}</h4>
                                 <p className="text-sm text-gray-500 capitalize">
                                     {new Date(booking.date).toLocaleDateString('da-DK', { weekday: 'long', day: 'numeric', month: 'long' })}
                                 </p>
                             </div>
-                            <span className={`text-xs px-2 py-1 rounded-full ${
-                                booking.status === 'completed' ? 'bg-gray-100 text-gray-600' : 'bg-red-50 text-red-500'
+                            <span className={`text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border ${
+                                booking.status === 'completed' ? 'bg-white/5 text-gray-400 border-white/10' : 'bg-red-900/20 text-red-400 border-red-900/30'
                             }`}>
                                 {booking.status === 'completed' ? 'Gennemført' : 'Aflyst'}
                             </span>
