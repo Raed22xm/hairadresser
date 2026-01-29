@@ -15,8 +15,13 @@ import { ScissorsIcon, PlayIcon } from '@/components/Icons'
 export const dynamic = 'force-dynamic'
 
 async function getHairdresser() {
-  const hairdresser = await prisma.hairdresser.findFirst()
-  return hairdresser
+  try {
+    const hairdresser = await prisma.hairdresser.findFirst()
+    return hairdresser
+  } catch (error) {
+    console.error('Failed to fetch hairdresser data:', error)
+    return null
+  }
 }
 
 export default async function HomePage() {
