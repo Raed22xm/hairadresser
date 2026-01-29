@@ -12,6 +12,8 @@ import PricingGrid from '@/components/PricingGrid'
 import UserMenu from '@/components/UserMenu'
 import { ScissorsIcon, PlayIcon } from '@/components/Icons'
 
+export const dynamic = 'force-dynamic'
+
 async function getHairdresser() {
   const hairdresser = await prisma.hairdresser.findFirst()
   return hairdresser
