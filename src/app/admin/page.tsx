@@ -101,23 +101,23 @@ export default async function AdminDashboard() {
   const stats = await getDashboardStats()
 
   return (
-    <div className="p-10 max-w-7xl mx-auto">
+    <div className="p-6 md:p-10 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="mb-10 flex justify-between items-end">
+      <div className="mb-12 flex flex-col md:flex-row justify-between md:items-end gap-6">
         <div>
            <p className="text-[#D4AF37] text-xs font-bold uppercase tracking-widest mb-2">Admin Kontrolpanel</p>
            <h1 className="text-4xl font-serif text-white">Oversigt</h1>
         </div>
-        <div className="text-right">
-            <p className="text-gray-500 text-sm">Velkommen tilbage</p>
-            <p className="text-white font-bold">{format(new Date(), 'd. MMMM yyyy', { locale: da })}</p>
+        <div className="text-left md:text-right">
+            <p className="text-gray-400 text-sm">Velkommen tilbage</p>
+            <p className="text-white font-bold text-lg">{format(new Date(), 'd. MMMM yyyy', { locale: da })}</p>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {/* Today's Bookings */}
-        <div className="bg-[#121212] border border-white/10 rounded-2xl p-6 relative overflow-hidden group">
+        <div className="bg-[#121212] border border-white/15 rounded-lg p-6 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-24 h-24 bg-[#D4AF37] opacity-5 rounded-full blur-[40px] group-hover:opacity-10 transition-opacity"></div>
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-4">
@@ -132,14 +132,14 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Week's Bookings */}
-        <div className="bg-[#121212] border border-white/10 rounded-2xl p-6 relative overflow-hidden group">
+        <div className="bg-[#121212] border border-white/15 rounded-lg p-6 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500 opacity-5 rounded-full blur-[40px] group-hover:opacity-10 transition-opacity"></div>
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-4">
-               <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+               <div className="p-3 bg-white/5 rounded-lg border border-white/5">
                   <BarChartIcon className="w-6 h-6 text-blue-400" />
                </div>
-               <span className="text-xs font-bold bg-blue-500/10 text-blue-400 px-2 py-1 rounded-md">UGE {format(new Date(), 'w')}</span>
+               <span className="text-xs font-bold bg-blue-500/10 text-blue-400 px-2 py-1 rounded">UGE {format(new Date(), 'w')}</span>
             </div>
             <p className="text-gray-400 text-sm font-medium mb-1">Denne Uge</p>
             <p className="text-4xl font-bold text-white">{stats.weekBookings}</p>
@@ -147,11 +147,11 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Weekly Revenue */}
-        <div className="bg-[#121212] border border-white/10 rounded-2xl p-6 relative overflow-hidden group">
+        <div className="bg-[#121212] border border-white/15 rounded-lg p-6 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-24 h-24 bg-green-500 opacity-5 rounded-full blur-[40px] group-hover:opacity-10 transition-opacity"></div>
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-4">
-               <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+               <div className="p-3 bg-white/5 rounded-lg border border-white/5">
                   <DollarIcon className="w-6 h-6 text-green-400" />
                </div>
             </div>
@@ -161,11 +161,11 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Active Services */}
-        <div className="bg-[#121212] border border-white/10 rounded-2xl p-6 relative overflow-hidden group">
+        <div className="bg-[#121212] border border-white/15 rounded-lg p-6 relative overflow-hidden group">
            <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500 opacity-5 rounded-full blur-[40px] group-hover:opacity-10 transition-opacity"></div>
            <div className="relative z-10">
             <div className="flex justify-between items-start mb-4">
-               <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+               <div className="p-3 bg-white/5 rounded-lg border border-white/5">
                   <ScissorsBarIcon className="w-6 h-6 text-purple-400" />
                </div>
             </div>
@@ -178,69 +178,69 @@ export default async function AdminDashboard() {
       {/* Quick Actions & Upcoming */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Quick Actions */}
-        <div className="bg-[#121212] border border-white/10 rounded-2xl p-8">
+        <div className="bg-[#121212] border border-white/15 rounded-lg p-8">
           <h2 className="text-xl font-bold text-white mb-6 font-serif">Hurtige Handlinger</h2>
           <div className="grid grid-cols-2 gap-4">
             <Link
               href="/admin/bookings"
-              className="flex flex-col items-center justify-center gap-3 p-6 bg-white/5 rounded-xl hover:bg-[#D4AF37] hover:text-black text-gray-300 transition-all group border border-white/5"
+              className="flex flex-col items-center justify-center gap-3 p-6 bg-white/5 rounded-lg hover:bg-[#D4AF37] hover:text-black text-gray-300 transition-all group border border-white/10 hover:border-[#D4AF37]"
             >
               <ClipboardIcon className="w-8 h-8 group-hover:scale-110 transition-transform" />
-              <span className="font-bold text-sm uppercase tracking-widest">Se Bookinger</span>
+              <span className="font-bold text-sm uppercase tracking-widest text-center">Se Bookinger</span>
             </Link>
             <Link
               href="/admin/services"
-              className="flex flex-col items-center justify-center gap-3 p-6 bg-white/5 rounded-xl hover:bg-[#D4AF37] hover:text-black text-gray-300 transition-all group border border-white/5"
+              className="flex flex-col items-center justify-center gap-3 p-6 bg-white/5 rounded-lg hover:bg-[#D4AF37] hover:text-black text-gray-300 transition-all group border border-white/10 hover:border-[#D4AF37]"
             >
               <EditIcon className="w-8 h-8 group-hover:scale-110 transition-transform" />
-              <span className="font-bold text-sm uppercase tracking-widest">Rediger Behandlinger</span>
+              <span className="font-bold text-sm uppercase tracking-widest text-center">Rediger</span>
             </Link>
             <Link
               href="/admin/availability"
-              className="flex flex-col items-center justify-center gap-3 p-6 bg-white/5 rounded-xl hover:bg-[#D4AF37] hover:text-black text-gray-300 transition-all group border border-white/5"
+              className="flex flex-col items-center justify-center gap-3 p-6 bg-white/5 rounded-lg hover:bg-[#D4AF37] hover:text-black text-gray-300 transition-all group border border-white/10 hover:border-[#D4AF37]"
             >
               <ClockIcon className="w-8 h-8 group-hover:scale-110 transition-transform" />
-              <span className="font-bold text-sm uppercase tracking-widest">Sæt Åbningstider</span>
+              <span className="font-bold text-sm uppercase tracking-widest text-center">Åbningstider</span>
             </Link>
             <Link
               href="/"
-              className="flex flex-col items-center justify-center gap-3 p-6 bg-white/5 rounded-xl hover:bg-[#D4AF37] hover:text-black text-gray-300 transition-all group border border-white/5"
+              className="flex flex-col items-center justify-center gap-3 p-6 bg-white/5 rounded-lg hover:bg-[#D4AF37] hover:text-black text-gray-300 transition-all group border border-white/10 hover:border-[#D4AF37]"
             >
               <GlobeIcon className="w-8 h-8 group-hover:scale-110 transition-transform" />
-              <span className="font-bold text-sm uppercase tracking-widest">Se Hjemmeside</span>
+              <span className="font-bold text-sm uppercase tracking-widest text-center">Hjemmeside</span>
             </Link>
           </div>
         </div>
 
         {/* Upcoming Bookings */}
-        <div className="bg-[#121212] border border-white/10 rounded-2xl p-8">
+        <div className="bg-[#121212] border border-white/15 rounded-lg p-8">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-white font-serif">Kommende Bookinger</h2>
             <Link href="/admin/bookings" className="text-[#D4AF37] text-xs font-bold uppercase tracking-widest hover:text-white transition-colors">
               Se alle →
             </Link>
           </div>
-          
+
           {stats.upcomingBookings.length > 0 ? (
             <div className="space-y-3">
               {stats.upcomingBookings.map((booking) => (
                 <div
                   key={booking.id}
-                  className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:border-[#D4AF37]/30 transition-colors group"
+                  className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10 hover:border-[#D4AF37]/40 hover:bg-white/8 transition-all group"
                 >
                   <div>
-                    <p className="text-white font-bold group-hover:text-[#D4AF37] transition-colors">{booking.customerName}</p>
-                    <p className="text-gray-500 text-sm">{booking.service.name}</p>
+                    <p className="text-white font-semibold group-hover:text-[#D4AF37] transition-colors">{booking.customerName}</p>
+                    <p className="text-gray-400 text-sm mt-1">{booking.service.name}</p>
                   </div>
-                  <div className="text-right">
-                    <p className="text-white font-bold text-sm capitalize bg-black/30 px-3 py-1 rounded-lg border border-white/10 mb-1">{format(new Date(booking.date), 'd. MMM', { locale: da })}</p>
+                  <div className="text-right flex-shrink-0 ml-4">
+                    <p className="text-white font-bold text-sm bg-white/5 px-3 py-1.5 rounded border border-white/10 mb-2">{format(new Date(booking.date), 'd. MMM', { locale: da })}</p>
                     <p className="text-[#D4AF37] text-xs font-bold">{booking.startTime}</p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center h-64 border border-dashed border-white/10 rounded-xl bg-white/5">
+            <div className="flex flex-col items-center justify-center h-64 border border-dashed border-white/10 rounded-lg bg-white/5">
                 <p className="text-gray-500 text-center font-medium">Ingen kommende bookinger</p>
             </div>
           )}

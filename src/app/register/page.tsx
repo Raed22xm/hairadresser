@@ -66,7 +66,7 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-[#0f0f0f] text-white flex flex-col font-sans">
       {/* Header */}
       <nav className="bg-[#0f0f0f]/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-4 py-6 flex justify-between items-center">
+        <div className="max-w-4xl mx-auto px-5 md:px-4 py-6 flex justify-between items-center">
           <Link href="/" className="text-xl font-bold flex items-center gap-2 group">
              <div className="w-8 h-8 flex items-center justify-center border border-[#D4AF37] rounded-full group-hover:bg-[#D4AF37] transition-all duration-300">
                 <ScissorsIcon className="w-4 h-4 fill-[#D4AF37] group-hover:fill-black transition-colors" />
@@ -80,30 +80,30 @@ export default function RegisterPage() {
       </nav>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center p-4 py-8">
+      <main className="flex-1 flex items-center justify-center p-5 py-12">
         <div className="w-full max-w-md">
           {/* Heading */}
-          <div className="text-center mb-10">
+          <div className="text-center mb-12">
             <h1 className="text-4xl font-serif text-white mb-3">Opret Konto</h1>
-            <p className="text-gray-400 font-light">Bliv medlem af gentlemen&#39;s club</p>
+            <p className="text-gray-300 font-light text-base">Bliv medlem af gentlemen&#39;s club</p>
           </div>
 
           {/* Register Form */}
-          <form onSubmit={handleSubmit} className="bg-[#121212] border border-white/10 rounded-2xl p-8 shadow-2xl">
+          <form onSubmit={handleSubmit} className="bg-[#121212] border border-white/15 rounded-lg p-8 shadow-2xl">
             {error && (
-              <div className="bg-red-900/20 border border-red-500/50 text-red-200 px-4 py-4 rounded-xl mb-6 text-sm font-medium flex items-center gap-3">
+              <div className="bg-red-900/20 border border-red-600/50 text-red-200 px-4 py-4 rounded-lg mb-6 text-sm font-medium flex items-center gap-3">
                 <span>⚠️</span>
                 <span>{error}</span>
               </div>
             )}
 
             <div className="mb-6">
-              <label className="block text-xs font-bold text-[#D4AF37] uppercase tracking-widest mb-2">Fulde Navn *</label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Fulde Navn *</label>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                className="w-full bg-[#050505] border border-white/15 rounded-lg px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 transition-all"
                 placeholder="Jens Hansen"
                 required
                 autoFocus
@@ -111,35 +111,35 @@ export default function RegisterPage() {
             </div>
 
             <div className="mb-6">
-              <label className="block text-xs font-bold text-[#D4AF37] uppercase tracking-widest mb-2">Email Adresse *</label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Email Adresse *</label>
               <input
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm(prev => ({ ...prev, email: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                className="w-full bg-[#050505] border border-white/15 rounded-lg px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 transition-all"
                 placeholder="jens@email.dk"
                 required
               />
             </div>
 
             <div className="mb-6">
-              <label className="block text-xs font-bold text-[#D4AF37] uppercase tracking-widest mb-2">Telefonnummer <span className="font-normal text-gray-500 normal-case tracking-normal">(Valgfrit)</span></label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Telefonnummer <span className="font-normal text-gray-600 normal-case tracking-normal">(Valgfrit)</span></label>
               <input
                 type="tel"
                 value={form.phone}
                 onChange={(e) => setForm(prev => ({ ...prev, phone: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                className="w-full bg-[#050505] border border-white/15 rounded-lg px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 transition-all"
                 placeholder="+45 12 34 56 78"
               />
             </div>
 
             <div className="mb-6">
-              <label className="block text-xs font-bold text-[#D4AF37] uppercase tracking-widest mb-2">Adgangskode *</label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Adgangskode *</label>
               <input
                 type="password"
                 value={form.password}
                 onChange={(e) => setForm(prev => ({ ...prev, password: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                className="w-full bg-[#050505] border border-white/15 rounded-lg px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 transition-all"
                 placeholder="Min. 6 tegn"
                 required
                 minLength={6}
@@ -147,12 +147,12 @@ export default function RegisterPage() {
             </div>
 
             <div className="mb-8">
-              <label className="block text-xs font-bold text-[#D4AF37] uppercase tracking-widest mb-2">Bekræft Adgangskode *</label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Bekræft Adgangskode *</label>
               <input
                 type="password"
                 value={form.confirmPassword}
                 onChange={(e) => setForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                className="w-full bg-[#050505] border border-white/15 rounded-lg px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 transition-all"
                 placeholder="Gentag din adgangskode"
                 required
               />
@@ -161,7 +161,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-[#D4AF37] text-black rounded-xl font-bold uppercase tracking-widest hover:bg-[#b5952f] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)]"
+              className="w-full py-3.5 bg-[#D4AF37] text-black rounded-lg font-bold uppercase tracking-widest hover:bg-[#c5a024] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.5)]"
             >
               {loading ? 'Opretter konto...' : 'Opret Konto'}
             </button>

@@ -8,6 +8,18 @@
   --muted: #1a1a1a;
   --muted-foreground: #a3a3a3;
   --border: #333333;
+
+  /* Design System */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+
+  --border-color-light: rgba(255, 255, 255, 0.15);
+  --border-color-lighter: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
 }
 
 @theme inline {
@@ -23,6 +35,61 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Design System Classes */
+@layer utilities {
+  .card-base {
+    @apply bg-white/5 border border-white/15 rounded-lg;
+  }
+
+  .card-hover {
+    @apply hover:border-[#D4AF37]/40 hover:bg-white/8 transition-all duration-300;
+  }
+
+  .button-primary {
+    @apply py-3.5 bg-[#D4AF37] text-black rounded-lg font-bold uppercase tracking-widest hover:bg-[#c5a024] transition-all shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.5)];
+  }
+
+  .button-secondary {
+    @apply px-6 py-3.5 border border-white/20 rounded-lg text-gray-300 font-semibold hover:border-white/40 hover:text-white hover:bg-white/5 transition-all;
+  }
+
+  .input-field {
+    @apply w-full bg-[#050505] border border-white/15 text-white rounded-lg px-4 py-3.5 placeholder-gray-600 outline-none transition-all;
+  }
+
+  .input-field-focus {
+    @apply focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20;
+  }
+
+  .input-field-error {
+    @apply border-red-600/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/20;
+  }
+
+  .section-spacing {
+    @apply py-24 md:py-32;
+  }
+
+  .section-padding {
+    @apply px-5 md:px-6;
+  }
+
+  .text-label {
+    @apply text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider;
+  }
+
+  .text-caption {
+    @apply text-xs font-bold text-gray-500 uppercase tracking-widest;
+  }
+
+  .text-body-light {
+    @apply text-base leading-relaxed font-light;
+  }
+
+  .text-body-muted {
+    @apply text-gray-400 text-sm;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -31,4 +98,15 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif), serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
 }

@@ -34,45 +34,45 @@ export default async function AdminBookingsPage() {
   const completed = bookings.filter(b => b.status === 'completed')
 
   return (
-    <div className="p-10 max-w-7xl mx-auto">
+    <div className="p-6 md:p-10 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="mb-10 flex justify-between items-end">
+      <div className="mb-12 flex flex-col md:flex-row justify-between md:items-end gap-6">
         <div>
            <h1 className="text-4xl font-serif text-white mb-2">Bookinger</h1>
-           <p className="text-gray-400 text-sm">Administrer alle kundebookinger</p>
+           <p className="text-gray-300 text-base">Administrer alle kundebookinger</p>
         </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div className="bg-[#121212] border border-white/10 rounded-2xl p-6 relative overflow-hidden group">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="bg-[#121212] border border-white/15 rounded-lg p-6 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-24 h-24 bg-green-500 opacity-5 rounded-full blur-[40px] group-hover:opacity-10 transition-opacity"></div>
           <div className="relative z-10 text-center">
-             <p className="text-4xl font-bold text-green-500 mb-1">{confirmed.length}</p>
-             <p className="text-green-500/80 text-xs font-bold uppercase tracking-widest">Bekræftet</p>
+             <p className="text-4xl font-bold text-green-400 mb-1">{confirmed.length}</p>
+             <p className="text-green-400/80 text-xs font-bold uppercase tracking-widest">Bekræftet</p>
           </div>
         </div>
-        <div className="bg-[#121212] border border-white/10 rounded-2xl p-6 relative overflow-hidden group">
+        <div className="bg-[#121212] border border-white/15 rounded-lg p-6 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500 opacity-5 rounded-full blur-[40px] group-hover:opacity-10 transition-opacity"></div>
           <div className="relative z-10 text-center">
-             <p className="text-4xl font-bold text-blue-500 mb-1">{completed.length}</p>
-             <p className="text-blue-500/80 text-xs font-bold uppercase tracking-widest">Gennemført</p>
+             <p className="text-4xl font-bold text-blue-400 mb-1">{completed.length}</p>
+             <p className="text-blue-400/80 text-xs font-bold uppercase tracking-widest">Gennemført</p>
           </div>
         </div>
-        <div className="bg-[#121212] border border-white/10 rounded-2xl p-6 relative overflow-hidden group">
+        <div className="bg-[#121212] border border-white/15 rounded-lg p-6 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-24 h-24 bg-red-500 opacity-5 rounded-full blur-[40px] group-hover:opacity-10 transition-opacity"></div>
           <div className="relative z-10 text-center">
-             <p className="text-4xl font-bold text-red-500 mb-1">{cancelled.length}</p>
-             <p className="text-red-500/80 text-xs font-bold uppercase tracking-widest">Aflyst</p>
+             <p className="text-4xl font-bold text-red-400 mb-1">{cancelled.length}</p>
+             <p className="text-red-400/80 text-xs font-bold uppercase tracking-widest">Aflyst</p>
           </div>
         </div>
       </div>
 
       {/* Bookings Table */}
-      <div className="bg-[#121212] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+      <div className="bg-[#121212] border border-white/15 rounded-lg overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
             <table className="w-full">
-            <thead className="bg-white/5 border-b border-white/10">
+            <thead className="bg-white/5 border-b border-white/15">
                 <tr>
                 <th className="text-left text-[#D4AF37] px-6 py-5 font-bold text-xs uppercase tracking-widest">Kunde</th>
                 <th className="text-left text-[#D4AF37] px-6 py-5 font-bold text-xs uppercase tracking-widest">Behandling</th>
@@ -82,9 +82,9 @@ export default async function AdminBookingsPage() {
                 <th className="text-right text-[#D4AF37] px-6 py-5 font-bold text-xs uppercase tracking-widest">Handlinger</th>
                 </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-white/10">
                 {bookings.map((booking) => (
-                <tr key={booking.id} className="hover:bg-white/5 transition-colors group">
+                <tr key={booking.id} className="hover:bg-white/8 transition-colors group">
                     <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/50 text-xs font-bold">
@@ -128,8 +128,8 @@ export default async function AdminBookingsPage() {
         </div>
 
         {bookings.length === 0 && (
-          <div className="text-center py-16 border-t border-white/5">
-            <p className="text-gray-500 font-serif text-lg">Ingen bookinger endnu</p>
+          <div className="text-center py-16 border-t border-white/10">
+            <p className="text-gray-400 font-serif text-lg">Ingen bookinger endnu</p>
           </div>
         )}
       </div>

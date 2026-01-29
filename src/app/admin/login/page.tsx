@@ -66,23 +66,23 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="bg-[#121212] border border-white/10 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+        <form onSubmit={handleSubmit} className="bg-[#121212] border border-white/15 rounded-lg p-8 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37] opacity-5 rounded-full blur-[60px]"></div>
-          
+
           {error && (
-            <div className="bg-red-900/20 border border-red-500/50 text-red-200 px-4 py-4 rounded-xl mb-6 text-sm font-medium flex items-center gap-3 relative z-10">
+            <div className="bg-red-900/20 border border-red-600/50 text-red-200 px-4 py-4 rounded-lg mb-6 text-sm font-medium flex items-center gap-3 relative z-10">
               <span>⚠️</span>
               <span>{error}</span>
             </div>
           )}
 
           <div className="mb-8 relative z-10">
-            <label className="block text-xs font-bold text-[#D4AF37] uppercase tracking-widest mb-3">Admin Adgangskode</label>
+            <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Admin Adgangskode</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all"
+              className="w-full bg-[#050505] border border-white/15 rounded-lg px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 transition-all"
               placeholder="Indtast adgangskode"
               autoFocus
             />
@@ -91,7 +91,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading || !password}
-            className="w-full py-4 bg-[#D4AF37] text-black rounded-xl font-bold uppercase tracking-widest hover:bg-[#b5952f] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] relative z-10"
+            className="w-full py-3.5 bg-[#D4AF37] text-black rounded-lg font-bold uppercase tracking-widest hover:bg-[#c5a024] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] relative z-10"
           >
             {loading ? 'Logger ind...' : 'Log ind'}
           </button>

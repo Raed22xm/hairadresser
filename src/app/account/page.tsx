@@ -95,7 +95,7 @@ export default function AccountPage() {
     <div className="min-h-screen bg-[#0f0f0f] text-white font-sans">
       {/* Header */}
       <nav className="bg-[#0f0f0f]/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-4 py-6 flex justify-between items-center">
+        <div className="max-w-4xl mx-auto px-5 md:px-4 py-6 flex justify-between items-center">
           <Link href="/" className="text-xl font-bold flex items-center gap-2 group">
              <div className="w-8 h-8 flex items-center justify-center border border-[#D4AF37] rounded-full group-hover:bg-[#D4AF37] transition-all duration-300">
                 <ScissorsIcon className="w-4 h-4 fill-[#D4AF37] group-hover:fill-black transition-colors" />
@@ -111,30 +111,30 @@ export default function AccountPage() {
         </div>
       </nav>
 
-      <main className="max-w-4xl mx-auto px-4 py-12">
+      <main className="max-w-4xl mx-auto px-5 md:px-4 py-16">
         {/* Profile Card */}
-        <div className="bg-[#121212] border border-white/10 rounded-2xl p-8 mb-12 shadow-2xl relative overflow-hidden group">
+        <div className="bg-[#121212] border border-white/15 rounded-lg p-8 mb-12 shadow-2xl relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37] opacity-5 rounded-full blur-[100px] group-hover:opacity-10 transition-opacity"></div>
           
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
-            <div className="flex items-center gap-6">
-              <div className="h-24 w-24 bg-white/5 rounded-full flex items-center justify-center border border-white/10 text-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.1)]">
-                <UserIcon className="w-10 h-10" />
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative z-10">
+            <div className="flex items-start md:items-center gap-6">
+              <div className="h-20 w-20 md:h-24 md:w-24 bg-white/5 rounded-full flex items-center justify-center border border-white/10 text-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.1)] flex-shrink-0">
+                <UserIcon className="w-9 md:w-10 h-9 md:h-10" />
               </div>
               <div>
-                <h1 className="text-3xl font-serif text-white mb-2">{customer?.name}</h1>
-                <p className="text-gray-400 text-lg">{customer?.email}</p>
+                <h1 className="text-2xl md:text-3xl font-serif text-white mb-1">{customer?.name}</h1>
+                <p className="text-gray-300 text-base">{customer?.email}</p>
                 {customer?.phone && (
-                  <p className="text-[#D4AF37] mt-2 flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
+                  <p className="text-[#D4AF37] mt-3 flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
                     <span>📞</span> {customer.phone}
                   </p>
                 )}
               </div>
             </div>
-            
+
             <Link
               href="/"
-              className="px-8 py-4 bg-[#D4AF37] text-black rounded-xl font-bold uppercase tracking-widest hover:bg-[#b5952f] transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)]"
+              className="px-8 py-3.5 bg-[#D4AF37] text-black rounded-lg font-bold uppercase tracking-widest hover:bg-[#c5a024] transition-all shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] whitespace-nowrap"
             >
               Book Ny Tid
             </Link>
@@ -150,29 +150,29 @@ export default function AccountPage() {
         </h2>
 
         {/* Upcoming */}
-        <div className="space-y-4 mb-16">
+        <div className="space-y-3 mb-16">
             {upcomingBookings.length > 0 ? (
                 upcomingBookings.map(booking => (
-                    <div key={booking.id} className="bg-[#1a1a1a] border border-white/5 rounded-xl p-6 flex justify-between items-center group hover:border-[#D4AF37]/50 transition-colors">
+                    <div key={booking.id} className="bg-white/5 border border-white/10 rounded-lg p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 group hover:border-[#D4AF37]/40 hover:bg-white/8 transition-all">
                         <div>
-                            <h3 className="font-serif text-xl text-white mb-1 group-hover:text-[#D4AF37] transition-colors">{booking.service.name}</h3>
-                            <p className="text-gray-400 capitalize text-sm">
+                            <h3 className="font-serif text-lg text-white mb-2 group-hover:text-[#D4AF37] transition-colors">{booking.service.name}</h3>
+                            <p className="text-gray-300 capitalize text-sm">
                                 {new Date(booking.date).toLocaleDateString('da-DK', { weekday: 'long', month: 'long', day: 'numeric' })}
                                 <span className="mx-2 text-[#D4AF37]">•</span>
                                 <span className="text-white font-mono">{booking.startTime}</span>
                             </p>
                         </div>
-                        <div className="text-right">
-                             <p className="font-bold text-lg text-[#D4AF37] font-mono">{booking.service.price} kr.</p>
-                             <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] uppercase tracking-widest px-3 py-1 rounded-full mt-2">
+                        <div className="text-left md:text-right">
+                             <p className="font-bold text-lg text-[#D4AF37] font-mono mb-2">{booking.service.price} kr</p>
+                             <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">
                                 Bekræftet
                              </span>
                         </div>
                     </div>
                 ))
             ) : (
-                <div className="bg-white/5 border border-dashed border-white/10 rounded-xl p-16 text-center">
-                    <p className="text-gray-500 mb-6 font-serif text-lg">Ingen kommende tider</p>
+                <div className="bg-white/5 border border-dashed border-white/10 rounded-lg p-12 text-center">
+                    <p className="text-gray-400 mb-6 font-serif text-lg">Ingen kommende tider</p>
                     <Link href="/" className="text-[#D4AF37] hover:text-white font-bold uppercase tracking-widest text-xs border-b border-[#D4AF37] pb-1 hover:border-white transition-all">Book en tid nu</Link>
                 </div>
             )}
@@ -180,18 +180,18 @@ export default function AccountPage() {
 
         {/* Past */}
         {pastBookings.length > 0 && (
-            <div className="opacity-60 hover:opacity-100 transition-opacity duration-300">
-                <h3 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-6 pl-1">Tidligere Tider</h3>
-                <div className="space-y-4">
+            <div className="opacity-70 hover:opacity-100 transition-opacity duration-300">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-6">Tidligere Tider</h3>
+                <div className="space-y-3">
                     {pastBookings.map(booking => (
-                        <div key={booking.id} className="bg-white/5 border border-white/5 rounded-xl p-4 flex justify-between items-center">
+                        <div key={booking.id} className="bg-white/5 border border-white/10 rounded-lg p-4 flex justify-between items-center">
                             <div>
-                                <h4 className="font-bold text-gray-300">{booking.service.name}</h4>
-                                <p className="text-sm text-gray-500 capitalize">
+                                <h4 className="font-semibold text-gray-300 text-sm">{booking.service.name}</h4>
+                                <p className="text-xs text-gray-500 capitalize mt-1">
                                     {new Date(booking.date).toLocaleDateString('da-DK', { weekday: 'long', day: 'numeric', month: 'long' })}
                                 </p>
                             </div>
-                            <span className={`text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border ${
+                            <span className={`text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border font-medium ${
                                 booking.status === 'completed' ? 'bg-white/5 text-gray-400 border-white/10' : 'bg-red-900/20 text-red-400 border-red-900/30'
                             }`}>
                                 {booking.status === 'completed' ? 'Gennemført' : 'Aflyst'}

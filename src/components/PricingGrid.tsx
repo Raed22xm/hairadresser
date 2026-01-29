@@ -48,30 +48,30 @@ export default async function PricingGrid() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-black via-black to-gray-900">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-28 bg-gradient-to-br from-black via-black to-gray-900">
+      <div className="max-w-6xl mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: 'var(--color-primary, #D4AF37)' }}>Gennemskuelige Priser</p>
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-2">
+          <h2 className="text-5xl md:text-6xl font-bold text-white mb-3">
             Eksklusive Behandlinger
           </h2>
-          <h3 className="text-2xl md:text-3xl font-semibold text-white/70">
-            til Skarpe Priser
-          </h3>
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            Vores prisforslag er klare og konkurrencedygtige. Ingen skjulte gebyrer, kun ærlig håndværk til en fair pris.
+          </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service) => (
             <Link
               key={service.id}
               href={`/?service=${service.id}`}
-              className="group"
+              className="group h-full"
             >
-              <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-white/30 hover:shadow-xl transition-all duration-300 hover:bg-white/10">
+              <div className="bg-white/5 border border-white/15 rounded-xl overflow-hidden hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-300 hover:bg-white/8 h-full flex flex-col">
                 {/* Service Image */}
-                <div className="relative h-32 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
+                <div className="relative h-40 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
                   {service.imageUrl ? (
                     <img
                       src={service.imageUrl}
@@ -98,11 +98,11 @@ export default async function PricingGrid() {
                 </div>
 
                 {/* Service Info */}
-                <div className="p-4">
-                  <h3 className="text-sm font-bold text-white mb-2 group-hover:underline line-clamp-2">
+                <div className="p-5 flex flex-col flex-1 justify-between">
+                  <h3 className="text-sm font-semibold text-white mb-3 group-hover:text-[#D4AF37] line-clamp-2 transition-colors">
                     {service.name}
                   </h3>
-                  <p className="text-base font-bold" style={{ color: 'var(--color-primary, #D4AF37)' }}>
+                  <p className="text-lg font-bold" style={{ color: 'var(--color-primary, #D4AF37)' }}>
                     {service.price} kr
                   </p>
                 </div>

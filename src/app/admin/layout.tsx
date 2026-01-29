@@ -42,9 +42,9 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen bg-[#0f0f0f] flex text-white font-sans">
       {/* Sidebar */}
-      <aside className="w-72 bg-[#121212] border-r border-white/10 flex flex-col">
+      <aside className="w-72 bg-[#121212] border-r border-white/15 flex flex-col">
         {/* Logo */}
-        <div className="p-8 border-b border-white/10">
+        <div className="p-8 border-b border-white/15">
           <Link href="/admin" className=" flex items-center gap-3 group">
              <div className="w-8 h-8 flex items-center justify-center border border-[#D4AF37] rounded-full group-hover:bg-[#D4AF37] transition-all duration-300">
                 <ScissorsIcon className="w-4 h-4 fill-[#D4AF37] group-hover:fill-black transition-colors" />
@@ -60,28 +60,28 @@ export default async function AdminLayout({
         <nav className="flex-1 p-4 space-y-2">
           <Link
             href="/admin"
-            className="flex items-center gap-4 px-4 py-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
+            className="flex items-center gap-4 px-4 py-3 rounded-lg text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
           >
             <BarChartIcon className="w-5 h-5 group-hover:text-[#D4AF37] transition-colors" />
             <span className="font-medium text-sm">Oversigt</span>
           </Link>
           <Link
             href="/admin/bookings"
-            className="flex items-center gap-4 px-4 py-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
+            className="flex items-center gap-4 px-4 py-3 rounded-lg text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
           >
             <CalendarIcon className="w-5 h-5 group-hover:text-[#D4AF37] transition-colors" />
             <span className="font-medium text-sm">Bookinger</span>
           </Link>
           <Link
             href="/admin/services"
-            className="flex items-center gap-4 px-4 py-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
+            className="flex items-center gap-4 px-4 py-3 rounded-lg text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
           >
             <ScissorsBarIcon className="w-5 h-5 group-hover:text-[#D4AF37] transition-colors" />
             <span className="font-medium text-sm">Behandlinger</span>
           </Link>
           <Link
             href="/admin/availability"
-            className="flex items-center gap-4 px-4 py-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
+            className="flex items-center gap-4 px-4 py-3 rounded-lg text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
           >
             <ClockIcon className="w-5 h-5 group-hover:text-[#D4AF37] transition-colors" />
             <span className="font-medium text-sm">Åbningstider</span>
@@ -89,7 +89,7 @@ export default async function AdminLayout({
         </nav>
 
         {/* Footer */}
-        <div className="p-6 border-t border-white/10 bg-black/20">
+        <div className="p-6 border-t border-white/15 bg-black/40">
           <Link
             href="/"
             className="flex items-center gap-3 px-2 py-2 text-gray-500 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest mb-4"

@@ -218,26 +218,26 @@ export default function BookingWizard() {
         <div className="bg-[#121212] rounded-3xl shadow-xl overflow-hidden border border-white/10 text-white">
             {/* Steps Progress */}
             {step < 5 && (
-                <div className="bg-[#0f0f0f] px-6 py-6 border-b border-white/10">
-                    <div className="flex items-center justify-between">
+                <div className="bg-[#0f0f0f] px-4 md:px-6 py-6 border-b border-white/10">
+                    <div className="flex items-center justify-between gap-2 md:gap-4">
                         {[1, 2, 3, 4].map((s) => (
-                            <div key={s} className="flex flex-col items-center flex-1">
+                            <div key={s} className="flex flex-col items-center flex-1 min-w-0">
                                 <div
-                                   className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300
+                                   className={`w-9 md:w-10 h-9 md:h-10 rounded-full flex items-center justify-center text-xs md:text-sm font-bold transition-all duration-300
                                         ${step >= s ? 'bg-[#D4AF37] text-black shadow-[0_0_15px_rgba(212,175,55,0.3)]' : 'bg-white/10 text-white/30'}
                                     `}
                                 >
                                    {step > s ? (
-                                     <CheckmarkIcon className="w-5 h-5" />
+                                     <CheckmarkIcon className="w-4 md:w-5 h-4 md:h-5" />
                                    ) : (
                                      s
                                    )}
                                 </div>
-                                <span className={`text-xs font-semibold mt-2 text-center transition-colors uppercase tracking-wider ${step >= s ? 'text-[#D4AF37]' : 'text-zinc-600'}`}>
-                                   {s === 1 && 'Behandling'}
+                                <span className={`text-[10px] md:text-xs font-semibold mt-2 text-center transition-colors uppercase tracking-wider ${step >= s ? 'text-[#D4AF37]' : 'text-zinc-600'}`}>
+                                   {s === 1 && 'Tjeneste'}
                                    {s === 2 && 'Tid'}
-                                   {s === 3 && 'Detaljer'}
-                                   {s === 4 && 'Bekræft'}
+                                   {s === 3 && 'Info'}
+                                   {s === 4 && 'Godkend'}
                                 </span>
                              </div>
                         ))}
@@ -245,7 +245,7 @@ export default function BookingWizard() {
                 </div>
             )}
 
-            <div className="p-6 md:p-10">
+            <div className="p-5 md:p-10">
                 {/* Error Message */}
                 {error && (
                     <div className="bg-red-900/20 border border-red-900/50 text-red-400 px-4 py-4 rounded-xl mb-6 text-sm font-medium flex items-center gap-3">
@@ -262,12 +262,12 @@ export default function BookingWizard() {
                             <p className="text-gray-400 text-sm">Vælg den perfekte behandling til dig</p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-4">
+                        <div className="grid md:grid-cols-2 gap-5">
                             {services.map((service) => (
                                 <button
                                     key={service.id}
                                     onClick={() => selectService(service)}
-                                    className="group text-left border border-white/10 bg-white/5 rounded-2xl p-6 hover:border-[#D4AF37] hover:bg-white/10 transition-all duration-300"
+                                    className="group text-left border border-white/15 bg-white/5 rounded-2xl p-7 hover:border-[#D4AF37] hover:bg-[#D4AF37]/5 hover:shadow-lg transition-all duration-300"
                                 >
                                     <div className="flex justify-between items-start mb-3">
                                         <div className="flex-1">
@@ -373,10 +373,10 @@ export default function BookingWizard() {
                                         setBooking(prev => ({ ...prev, customerName: e.target.value }))
                                         if (validationErrors.customerName) setValidationErrors(prev => ({ ...prev, customerName: undefined }))
                                     }}
-                                    className={`w-full bg-[#0a0a0a] border text-white rounded-xl px-4 py-3 placeholder-gray-700 outline-none transition-all ${
+                                    className={`w-full bg-[#050505] border text-white rounded-lg px-4 py-3.5 placeholder-gray-600 outline-none transition-all ${
                                         validationErrors.customerName
-                                            ? 'border-red-900 focus:border-red-500'
-                                            : 'border-white/10 focus:border-[#D4AF37]'
+                                            ? 'border-red-600/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/20'
+                                            : 'border-white/15 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20'
                                     }`}
                                     placeholder="Jens Hansen"
                                     autoFocus
@@ -398,10 +398,10 @@ export default function BookingWizard() {
                                         setBooking(prev => ({ ...prev, customerEmail: e.target.value }))
                                         if (validationErrors.customerEmail) setValidationErrors(prev => ({ ...prev, customerEmail: undefined }))
                                     }}
-                                    className={`w-full bg-[#0a0a0a] border text-white rounded-xl px-4 py-3 placeholder-gray-700 outline-none transition-all ${
+                                    className={`w-full bg-[#050505] border text-white rounded-lg px-4 py-3.5 placeholder-gray-600 outline-none transition-all ${
                                         validationErrors.customerEmail
-                                            ? 'border-red-900 focus:border-red-500'
-                                            : 'border-white/10 focus:border-[#D4AF37]'
+                                            ? 'border-red-600/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/20'
+                                            : 'border-white/15 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20'
                                     }`}
                                     placeholder="jens@eksempel.dk"
                                 />
@@ -419,7 +419,7 @@ export default function BookingWizard() {
                                     type="tel"
                                     value={booking.customerPhone}
                                     onChange={(e) => setBooking(prev => ({ ...prev, customerPhone: e.target.value }))}
-                                    className="w-full bg-[#0a0a0a] border border-white/10 text-white rounded-xl px-4 py-3 placeholder-gray-700 outline-none focus:border-[#D4AF37] transition-all"
+                                    className="w-full bg-[#050505] border border-white/15 text-white rounded-lg px-4 py-3.5 placeholder-gray-600 outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 transition-all"
                                     placeholder="+45 12 34 56 78"
                                 />
                             </div>
@@ -441,14 +441,14 @@ export default function BookingWizard() {
                         <div className="mt-8 flex gap-3">
                             <button
                                 onClick={() => setStep(2)}
-                                className="px-6 py-3 border border-white/10 rounded-xl text-gray-400 font-semibold hover:border-white hover:text-white transition-all text-sm uppercase tracking-wider"
+                                className="px-6 py-3.5 border border-white/20 rounded-lg text-gray-300 font-semibold hover:border-white/40 hover:text-white hover:bg-white/5 transition-all text-sm uppercase tracking-wider"
                             >
                                 Tilbage
                             </button>
                             <button
                                 onClick={() => setStep(4)}
                                 disabled={!agreedToTerms}
-                                className="flex-1 py-3 bg-[#D4AF37] text-black rounded-xl font-bold uppercase tracking-widest hover:bg-[#b08d2b] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]"
+                                className="flex-1 py-3.5 bg-[#D4AF37] text-black rounded-lg font-bold uppercase tracking-widest hover:bg-[#c5a024] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.5)]"
                             >
                                 Gennemse Booking
                             </button>
@@ -517,14 +517,14 @@ export default function BookingWizard() {
                         <div className="mt-8 flex gap-3">
                             <button
                                 onClick={() => setStep(3)}
-                                className="px-6 py-3 border border-white/10 rounded-xl text-gray-400 font-semibold hover:border-white hover:text-white transition-all text-sm uppercase tracking-wider"
+                                className="px-6 py-3.5 border border-white/20 rounded-lg text-gray-300 font-semibold hover:border-white/40 hover:text-white hover:bg-white/5 transition-all text-sm uppercase tracking-wider"
                             >
                                 Rediger
                             </button>
                             <button
                                 onClick={submitBooking}
                                 disabled={loading}
-                                className="flex-1 py-3 bg-[#D4AF37] text-black rounded-xl font-bold uppercase tracking-widest hover:bg-[#b08d2b] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center gap-2"
+                                className="flex-1 py-3.5 bg-[#D4AF37] text-black rounded-lg font-bold uppercase tracking-widest hover:bg-[#c5a024] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] flex items-center justify-center gap-2"
                             >
                                 {loading ? (
                                     <>

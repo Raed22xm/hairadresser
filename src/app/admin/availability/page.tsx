@@ -50,11 +50,11 @@ export default async function AdminAvailabilityPage() {
   )
 
   return (
-    <div className="p-8">
+    <div className="p-6 md:p-10">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-black">Åbningstider</h1>
-        <p className="text-gray-500 mt-1">
+      <div className="mb-10">
+        <h1 className="text-4xl font-serif font-bold text-white mb-2">Åbningstider</h1>
+        <p className="text-gray-300 text-base">
           Indstil dine åbningstider og bloker specifikke datoer (f.eks. ferie)
         </p>
       </div>

@@ -79,9 +79,9 @@ export default function Calendar({
     function renderDaysOfWeek() {
         const days = ['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør']
         return (
-            <div className="grid grid-cols-7 mb-2">
+            <div className="grid grid-cols-7 mb-3">
                 {days.map((day) => (
-                    <div key={day} className="text-center text-xs font-bold uppercase tracking-wider text-[#D4AF37] py-2">
+                    <div key={day} className="text-center text-[10px] md:text-xs font-bold uppercase tracking-wider text-[#D4AF37] py-2">
                         {day}
                     </div>
                 ))}
