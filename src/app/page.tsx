@@ -4,6 +4,7 @@
  * Luxury Dark Theme Implementation.
  */
 
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { prisma } from '@/lib/db'
 import BookingWizard from '@/components/BookingWizard'
@@ -136,7 +137,13 @@ export default async function HomePage() {
                  <h2 className="text-4xl md:text-5xl font-serif mb-4">Book Din Tid</h2>
                  <p className="text-gray-400 max-w-xl mx-auto">Vælg din behandling og foretrukne frisør for at komme i gang.</p>
              </div>
-             <BookingWizard />
+             <Suspense fallback={
+               <div className="flex justify-center p-20">
+                 <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#D4AF37] border-t-transparent"></div>
+               </div>
+             }>
+                <BookingWizard />
+             </Suspense>
          </div>
       </section>
 
