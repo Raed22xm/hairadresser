@@ -108,9 +108,16 @@ export default function BookingWizard() {
         try {
             const res = await fetch('/api/services')
             const data = await res.json()
-            setServices(data)
-        } catch {
+            
+            if (Array.isArray(data)) {
+                setServices(data)
+            } else {
+                throw new Error(data.error || 'Failed to load services')
+            }
+        } catch (err) {
+            console.error(err)
             setError('Failed to load services')
+            setServices([])
         }
     }
 
