@@ -46,11 +46,11 @@ export default async function AdminLayout({
         {/* Logo */}
         <div className="p-6 border-b border-white/15 flex items-center justify-center">
           <Link href="/admin" className="flex items-center justify-center group">
-             <div className="w-20 h-20 overflow-hidden rounded-full" style={{clipPath: 'circle(50%)'}}>
+             <div className="w-20 h-20 overflow-hidden rounded-full bg-black flex items-center justify-center">
                <img
-                 src="https://cdn.builder.io/api/v1/image/assets%2Fc8f5d9724b844104aeadb496288cf7ee%2F13c607cd1aa04d4289048d776c9e6395?format=webp&width=800&height=1200"
+                 src="/logo.png"
                  alt="Frisør Glostrup Logo"
-                 className="w-20 h-20 object-cover object-center transition-transform group-hover:scale-105"
+                 className="w-full h-full object-cover"
                />
              </div>
           </Link>

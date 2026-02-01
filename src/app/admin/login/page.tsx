@@ -54,11 +54,11 @@ export default function AdminLoginPage() {
         {/* Logo */}
         <div className="text-center mb-10">
           <Link href="/" className="inline-flex items-center justify-center mb-6 group">
-             <div className="w-24 h-24 overflow-hidden rounded-full" style={{clipPath: 'circle(50%)'}}>
+             <div className="w-24 h-24 overflow-hidden rounded-full bg-black flex items-center justify-center">
                <img
-                 src="https://cdn.builder.io/api/v1/image/assets%2Fc8f5d9724b844104aeadb496288cf7ee%2F13c607cd1aa04d4289048d776c9e6395?format=webp&width=800&height=1200"
+                 src="/logo.png"
                  alt="Frisør Glostrup Logo"
-                 className="w-24 h-24 object-cover object-center transition-transform group-hover:scale-110"
+                 className="w-full h-full object-cover"
                />
              </div>
           </Link>

@@ -68,8 +68,12 @@ export default function RegisterPage() {
       <nav className="bg-[#0f0f0f]/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-5 md:px-4 py-6 flex justify-between items-center">
           <Link href="/" className="text-xl font-bold flex items-center gap-2 group">
-             <div className="w-8 h-8 flex items-center justify-center border border-[#D4AF37] rounded-full group-hover:bg-[#D4AF37] transition-all duration-300">
-                <ScissorsIcon className="w-4 h-4 fill-[#D4AF37] group-hover:fill-black transition-colors" />
+             <div className="w-10 h-10 overflow-hidden rounded-full bg-black flex items-center justify-center border border-white/10">
+                <img
+                  src="/logo.png"
+                  alt="Frisør Glostrup Logo"
+                  className="w-full h-full object-cover"
+                />
              </div>
              <span className="font-serif tracking-widest uppercase text-sm">Frisør Glostrup</span>
           </Link>
