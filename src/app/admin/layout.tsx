@@ -44,14 +44,14 @@ export default async function AdminLayout({
       {/* Sidebar */}
       <aside className="w-72 bg-[#121212] border-r border-white/15 flex flex-col">
         {/* Logo */}
-        <div className="p-8 border-b border-white/15">
-          <Link href="/admin" className=" flex items-center gap-3 group">
-             <div className="w-8 h-8 flex items-center justify-center border border-[#D4AF37] rounded-full group-hover:bg-[#D4AF37] transition-all duration-300">
-                <ScissorsIcon className="w-4 h-4 fill-[#D4AF37] group-hover:fill-black transition-colors" />
-             </div>
-             <div>
-                <span className="font-serif block text-lg font-bold text-white">FRISØR GLOSTRUP</span>
-                <span className="text-[10px] text-[#D4AF37] uppercase tracking-[0.2em] font-bold">Admin Panel</span>
+        <div className="p-6 border-b border-white/15 flex items-center justify-center">
+          <Link href="/admin" className="flex items-center justify-center group">
+             <div className="w-20 h-20 overflow-hidden rounded-full" style={{clipPath: 'circle(50%)'}}>
+               <img
+                 src="https://cdn.builder.io/api/v1/image/assets%2Fc8f5d9724b844104aeadb496288cf7ee%2F13c607cd1aa04d4289048d776c9e6395?format=webp&width=800&height=1200"
+                 alt="Frisør Glostrup Logo"
+                 className="w-20 h-20 object-cover object-center transition-transform group-hover:scale-105"
+               />
              </div>
           </Link>
         </div>

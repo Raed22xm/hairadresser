@@ -8,12 +8,17 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { adminLoginSchema } from '@/lib/validators'
+import { parseBody } from '@/lib/api-utils'
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123'
 
 export async function POST(request: NextRequest) {
   try {
-    const { password } = await request.json()
+    const body = await request.json()
+    const result = parseBody(adminLoginSchema, body)
+    if (!result.success) return result.response
+    const { password } = result.data
 
     if (password !== ADMIN_PASSWORD) {
       return NextResponse.json(

@@ -8,35 +8,15 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import bcrypt from 'bcryptjs'
 import { cookies } from 'next/headers'
+import { registerCustomerSchema } from '@/lib/validators'
+import { parseBody } from '@/lib/api-utils'
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password, name, phone } = await request.json()
-
-    // Validate required fields
-    if (!email || !password || !name) {
-      return NextResponse.json(
-        { error: 'Email, password, and name are required' },
-        { status: 400 }
-      )
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      )
-    }
-
-    // Validate password strength
-    if (password.length < 6) {
-      return NextResponse.json(
-        { error: 'Password must be at least 6 characters' },
-        { status: 400 }
-      )
-    }
+    const body = await request.json()
+    const result = parseBody(registerCustomerSchema, body)
+    if (!result.success) return result.response
+    const { email, password, name, phone } = result.data
 
     // Check if customer already exists
     const existing = await prisma.customer.findUnique({

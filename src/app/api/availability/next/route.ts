@@ -10,7 +10,8 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
-import { addDays, addMinutes, format, parse, isAfter, isBefore, addHours } from 'date-fns'
+import { addDays, addMinutes, format, parse, isBefore, addHours } from 'date-fns'
+import { isSlotBlocked, doTimeSlotsOverlap } from '@/lib/booking-utils'
 
 /**
  * GET /api/availability/next
@@ -107,21 +108,14 @@ export async function GET(request: NextRequest) {
                 }
 
                 // Check if blocked
-                const isBlocked = blockedSlots.some(blocked => {
-                    if (!blocked.startTime || !blocked.endTime) return false
-                    return slotStr >= blocked.startTime && slotStr < blocked.endTime
-                })
+                const blocked = isSlotBlocked(slotStr, blockedSlots)
 
                 // Check if booked
-                const isBooked = bookings.some(booking => {
-                    return (
-                        (slotStr >= booking.startTime && slotStr < booking.endTime) ||
-                        (slotEndStr > booking.startTime && slotEndStr <= booking.endTime) ||
-                        (slotStr <= booking.startTime && slotEndStr >= booking.endTime)
-                    )
-                })
+                const booked = bookings.some(booking =>
+                    doTimeSlotsOverlap({ startTime: slotStr, endTime: slotEndStr }, booking)
+                )
 
-                if (!isBlocked && !isBooked) {
+                if (!blocked && !booked) {
                     nextSlots.push({
                         date: dateStr,
                         time: slotStr,

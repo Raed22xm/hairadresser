@@ -53,13 +53,14 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-10">
-          <Link href="/" className="inline-flex items-center justify-center gap-3 mb-6 group">
-             <div className="w-12 h-12 flex items-center justify-center border border-[#D4AF37] rounded-full group-hover:bg-[#D4AF37] transition-all duration-300">
-                <ScissorsIcon className="w-6 h-6 fill-[#D4AF37] text-[#D4AF37] group-hover:text-black group-hover:fill-black transition-colors" />
+          <Link href="/" className="inline-flex items-center justify-center mb-6 group">
+             <div className="w-24 h-24 overflow-hidden rounded-full" style={{clipPath: 'circle(50%)'}}>
+               <img
+                 src="https://cdn.builder.io/api/v1/image/assets%2Fc8f5d9724b844104aeadb496288cf7ee%2F13c607cd1aa04d4289048d776c9e6395?format=webp&width=800&height=1200"
+                 alt="Frisør Glostrup Logo"
+                 className="w-24 h-24 object-cover object-center transition-transform group-hover:scale-110"
+               />
              </div>
-             <span className="text-2xl font-bold font-serif tracking-widest uppercase text-white group-hover:text-[#D4AF37] transition-colors">
-               Frisør Glostrup
-             </span>
           </Link>
           <h1 className="text-3xl font-serif text-white mb-2">Admin Panel</h1>
           <p className="text-gray-400 text-sm font-light tracking-wide">Indtast dine oplysninger for at tilgå kontrolpanelet</p>

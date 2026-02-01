@@ -12,9 +12,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { sendBookingConfirmation } from '@/lib/email'
-import { addMinutes, format, parse, addHours, isBefore } from 'date-fns'
 import { cookies } from 'next/headers'
 import crypto from 'crypto'
+import { createBookingSchema } from '@/lib/validators'
+import { parseBody } from '@/lib/api-utils'
+import { calculateEndTime, isAdvanceBookingValid, isWithinWorkingHours, isSlotBlocked, doTimeSlotsOverlap } from '@/lib/booking-utils'
 
 /**
  * GET /api/bookings
@@ -78,15 +80,9 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json()
-        const { serviceId, date, startTime, customerName, customerEmail, customerPhone } = body
-
-        // Validate required fields
-        if (!serviceId || !date || !startTime || !customerName || !customerEmail) {
-            return NextResponse.json(
-                { error: 'Missing required fields' },
-                { status: 400 }
-            )
-        }
+        const result = parseBody(createBookingSchema, body)
+        if (!result.success) return result.response
+        const { serviceId, date, startTime, customerName, customerEmail, customerPhone } = result.data
 
         // Get hairdresser
         const hairdresser = await prisma.hairdresser.findFirst()
@@ -104,14 +100,10 @@ export async function POST(request: NextRequest) {
 
         // Calculate end time
         const bookingDate = new Date(date)
-        const startDateTime = parse(startTime, 'HH:mm', bookingDate)
-        const endDateTime = addMinutes(startDateTime, service.durationMinutes)
-        const endTime = format(endDateTime, 'HH:mm')
+        const endTime = calculateEndTime(startTime, service.durationMinutes)
 
         // Validate: Not in the past
-        const now = new Date()
-        const minBookingTime = addHours(now, 2)
-        if (isBefore(startDateTime, minBookingTime)) {
+        if (!isAdvanceBookingValid(bookingDate, startTime)) {
             return NextResponse.json(
                 { error: 'Booking must be at least 2 hours in advance' },
                 { status: 400 }
@@ -134,7 +126,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Validate: Within working hours
-        if (startTime < dayAvailability.startTime || endTime > dayAvailability.endTime) {
+        if (!isWithinWorkingHours(startTime, endTime, dayAvailability.startTime, dayAvailability.endTime)) {
             return NextResponse.json(
                 { error: 'Booking is outside working hours' },
                 { status: 400 }
@@ -149,12 +141,7 @@ export async function POST(request: NextRequest) {
             },
         })
 
-        const isBlocked = blockedSlots.some((blocked) => {
-            if (!blocked.startTime || !blocked.endTime) return true
-            return startTime >= blocked.startTime && startTime < blocked.endTime
-        })
-
-        if (isBlocked) {
+        if (isSlotBlocked(startTime, blockedSlots)) {
             return NextResponse.json(
                 { error: 'This time slot is blocked' },
                 { status: 400 }
@@ -170,13 +157,9 @@ export async function POST(request: NextRequest) {
             },
         })
 
-        const hasConflict = existingBookings.some((booking) => {
-            return (
-                (startTime >= booking.startTime && startTime < booking.endTime) ||
-                (endTime > booking.startTime && endTime <= booking.endTime) ||
-                (startTime <= booking.startTime && endTime >= booking.endTime)
-            )
-        })
+        const hasConflict = existingBookings.some((booking) =>
+            doTimeSlotsOverlap({ startTime, endTime }, booking)
+        )
 
         if (hasConflict) {
             return NextResponse.json(

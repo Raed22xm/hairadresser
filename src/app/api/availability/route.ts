@@ -12,7 +12,10 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
-import { addMinutes, format, parse, isAfter, isBefore, addHours } from 'date-fns'
+import { addMinutes, format, parse, isBefore, addHours } from 'date-fns'
+import { updateAvailabilitySchema } from '@/lib/validators'
+import { parseBody } from '@/lib/api-utils'
+import { isSlotBlocked, doTimeSlotsOverlap } from '@/lib/booking-utils'
 
 /**
  * GET /api/availability
@@ -83,7 +86,9 @@ export async function GET(request: NextRequest) {
 export async function PUT(request: NextRequest) {
     try {
         const body = await request.json()
-        const { dayOfWeek, startTime, endTime, isAvailable } = body
+        const result = parseBody(updateAvailabilitySchema, body)
+        if (!result.success) return result.response
+        const { dayOfWeek, startTime, endTime, isAvailable } = result.data
 
         const hairdresser = await prisma.hairdresser.findFirst()
         if (!hairdresser) {
@@ -94,7 +99,7 @@ export async function PUT(request: NextRequest) {
             where: {
                 hairdresserId_dayOfWeek: {
                     hairdresserId: hairdresser.id,
-                    dayOfWeek: Number(dayOfWeek),
+                    dayOfWeek,
                 },
             },
             update: {
@@ -104,7 +109,7 @@ export async function PUT(request: NextRequest) {
             },
             create: {
                 hairdresserId: hairdresser.id,
-                dayOfWeek: Number(dayOfWeek),
+                dayOfWeek,
                 startTime,
                 endTime,
                 isAvailable,
@@ -199,21 +204,14 @@ async function getAvailableSlotsForDate(
         }
 
         // Check if slot is blocked
-        const isBlocked = blockedSlots.some((blocked) => {
-            if (!blocked.startTime || !blocked.endTime) return true // Whole day blocked
-            return slotStr >= blocked.startTime && slotStr < blocked.endTime
-        })
+        const blocked = isSlotBlocked(slotStr, blockedSlots)
 
         // Check if slot overlaps with existing booking
-        const isBooked = bookings.some((booking) => {
-            return (
-                (slotStr >= booking.startTime && slotStr < booking.endTime) ||
-                (slotEndStr > booking.startTime && slotEndStr <= booking.endTime) ||
-                (slotStr <= booking.startTime && slotEndStr >= booking.endTime)
-            )
-        })
+        const booked = bookings.some((booking) =>
+            doTimeSlotsOverlap({ startTime: slotStr, endTime: slotEndStr }, booking)
+        )
 
-        if (!isBlocked && !isBooked) {
+        if (!blocked && !booked) {
             slots.push(slotStr)
         }
 

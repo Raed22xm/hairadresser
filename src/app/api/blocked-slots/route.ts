@@ -12,6 +12,8 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { createBlockedSlotSchema } from '@/lib/validators'
+import { parseBody } from '@/lib/api-utils'
 
 /**
  * GET /api/blocked-slots
@@ -68,14 +70,9 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json()
-        const { date, startTime, endTime, reason } = body
-
-        if (!date) {
-            return NextResponse.json(
-                { error: 'Date is required' },
-                { status: 400 }
-            )
-        }
+        const result = parseBody(createBlockedSlotSchema, body)
+        if (!result.success) return result.response
+        const { date, startTime, endTime, reason } = result.data
 
         const hairdresser = await prisma.hairdresser.findFirst()
         if (!hairdresser) {

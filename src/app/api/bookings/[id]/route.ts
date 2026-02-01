@@ -13,6 +13,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { differenceInHours } from 'date-fns'
+import { updateBookingStatusSchema } from '@/lib/validators'
+import { parseBody } from '@/lib/api-utils'
 
 type RouteParams = { params: Promise<{ id: string }> }
 
@@ -68,14 +70,9 @@ export async function PUT(
     try {
         const { id } = await params
         const body = await request.json()
-        const { status } = body
-
-        if (status !== 'cancelled' && status !== 'completed') {
-            return NextResponse.json(
-                { error: 'Status must be cancelled or completed' },
-                { status: 400 }
-            )
-        }
+        const result = parseBody(updateBookingStatusSchema, body)
+        if (!result.success) return result.response
+        const { status } = result.data
 
         // Find booking
         const booking = await prisma.booking.findFirst({

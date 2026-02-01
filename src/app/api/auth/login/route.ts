@@ -8,17 +8,15 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import bcrypt from 'bcryptjs'
 import { cookies } from 'next/headers'
+import { loginSchema } from '@/lib/validators'
+import { parseBody } from '@/lib/api-utils'
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json()
-
-    if (!email || !password) {
-      return NextResponse.json(
-        { error: 'Email and password are required' },
-        { status: 400 }
-      )
-    }
+    const body = await request.json()
+    const result = parseBody(loginSchema, body)
+    if (!result.success) return result.response
+    const { email, password } = result.data
 
     // Find customer
     const customer = await prisma.customer.findUnique({

@@ -12,6 +12,8 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { updateServiceSchema } from '@/lib/validators'
+import { parseBody } from '@/lib/api-utils'
 
 type RouteParams = { params: Promise<{ id: string }> }
 
@@ -77,15 +79,17 @@ export async function PUT(
         const { id } = await params
         const body = await request.json()
 
-        const { name, description, durationMinutes, price, isActive } = body
+        const result = parseBody(updateServiceSchema, body)
+        if (!result.success) return result.response
+        const { name, description, durationMinutes, price, isActive } = result.data
 
         const service = await prisma.service.update({
             where: { id },
             data: {
-                ...(name && { name }),
+                ...(name !== undefined && { name }),
                 ...(description !== undefined && { description }),
-                ...(durationMinutes && { durationMinutes: Number(durationMinutes) }),
-                ...(price && { price: Number(price) }),
+                ...(durationMinutes !== undefined && { durationMinutes }),
+                ...(price !== undefined && { price }),
                 ...(isActive !== undefined && { isActive }),
             },
         })

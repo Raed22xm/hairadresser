@@ -35,13 +35,14 @@ export default async function HomePage() {
       <header className="fixed top-0 left-0 right-0 z-50 mix-blend-difference text-white py-6">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex justify-between items-center bg-transparent">
           {/* Logo Box */}
-          <Link href="/" className="flex items-center gap-3 group">
-             <div className="w-10 h-10 flex items-center justify-center border border-[#D4AF37] rounded-full group-hover:bg-[#D4AF37] transition-all duration-300">
-                <ScissorsIcon className="w-5 h-5 fill-[#D4AF37] text-[#D4AF37] group-hover:text-black group-hover:fill-black transition-colors" />
+          <Link href="/" className="flex items-center gap-2 group">
+             <div className="w-20 h-20 overflow-hidden rounded-full bg-black flex items-center justify-center">
+               <img
+                 src="https://cdn.builder.io/api/v1/image/assets%2Fc8f5d9724b844104aeadb496288cf7ee%2F925571fe91ca413b8aa25c41fb58378d?format=webp&width=800&height=1200"
+                 alt="Frisør Glostrup Logo"
+                 className="w-full h-full object-cover"
+               />
              </div>
-             <span className="text-xl font-bold font-serif tracking-widest uppercase text-white group-hover:text-[#D4AF37] transition-colors">
-               Frisør Glostrup
-             </span>
           </Link>
 
           {/* Nav Links */}

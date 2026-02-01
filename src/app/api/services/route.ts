@@ -11,6 +11,8 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { createServiceSchema } from '@/lib/validators'
+import { parseBody } from '@/lib/api-utils'
 
 /**
  * GET /api/services
@@ -81,14 +83,9 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        // Validate required fields
-        const { name, durationMinutes, price, description } = body
-        if (!name || !durationMinutes || !price) {
-            return NextResponse.json(
-                { error: 'Missing required fields: name, durationMinutes, price' },
-                { status: 400 }
-            )
-        }
+        const result = parseBody(createServiceSchema, body)
+        if (!result.success) return result.response
+        const { name, durationMinutes, price, description } = result.data
 
         // Create the service
         const service = await prisma.service.create({
@@ -96,8 +93,8 @@ export async function POST(request: NextRequest) {
                 hairdresserId: hairdresser.id,
                 name,
                 description: description || null,
-                durationMinutes: Number(durationMinutes),
-                price: Number(price),
+                durationMinutes,
+                price,
                 isActive: true,
             },
         })
