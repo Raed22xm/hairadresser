@@ -210,14 +210,38 @@ export default async function HomePage() {
             <div className="space-y-3">
               <p className="text-gray-300">
                 <span className="text-gray-500 block text-xs mb-1">Telefon</span>
-                {hairdresser?.phone || '+45 12 34 56 78'}
+                <a href="tel:+4522103415" className="hover:text-[#D4AF37] transition-colors">{hairdresser?.phone || '+45 22 10 34 15'}</a>
               </p>
               <p className="text-gray-300">
                 <span className="text-gray-500 block text-xs mb-1">Email</span>
-                {hairdresser?.email || 'hello@hairadresser.dk'}
+                <a href="mailto:frisorglostrup@gmail.com" className="hover:text-[#D4AF37] transition-colors">{hairdresser?.email || 'frisorglostrup@gmail.com'}</a>
               </p>
             </div>
           </div>
+        </div>
+        
+        {/* Map Section */}
+        <div className="max-w-6xl mx-auto px-5 md:px-4 mb-12">
+          <div className="rounded-lg overflow-hidden border border-white/10">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2251.234567!2d12.398611!3d55.665833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4652530c8c5c8f2d%3A0x1234567890abcdef!2sHovedvejen%20139%2C%202600%20Glostrup%2C%20Denmark!5e0!3m2!1sen!2sdk!4v1234567890"
+              width="100%"
+              height="300"
+              style={{ border: 0, filter: 'grayscale(100%) invert(92%) contrast(83%)' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Frisør Glostrup Location"
+            />
+          </div>
+          <a 
+            href="https://www.google.com/maps/dir//Hovedvejen+139,+2600+Glostrup,+Denmark" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 mt-4 text-[#D4AF37] hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"
+          >
+            <span>📍</span> Få rutevejledning
+          </a>
         </div>
         
         <div className="max-w-6xl mx-auto px-5 md:px-4 border-t border-white/10 pt-12">

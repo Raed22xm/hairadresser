@@ -45,7 +45,7 @@ export default async function AdminLayout({
       <aside className="w-72 bg-[#121212] border-r border-white/15 flex flex-col">
         {/* Logo */}
         <div className="p-6 border-b border-white/15 flex items-center justify-center">
-          <Link href="/admin" className="flex items-center justify-center group">
+          <Link href="/" className="flex items-center justify-center group">
              <div className="w-20 h-20 overflow-hidden rounded-full bg-black flex items-center justify-center">
                <img
                  src="/logo.png"
