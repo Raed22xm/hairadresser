@@ -205,6 +205,10 @@ export function BookingWizardProvider({ children }: { children: ReactNode }) {
       })
       const data = await res.json()
       if (!res.ok) {
+        if (data.details && Array.isArray(data.details)) {
+          const messages = data.details.map((d: { field: string; message: string }) => d.message).join('. ')
+          throw new Error(messages)
+        }
         throw new Error(data.error || 'Failed to create booking')
       }
       setBookingResult(data)

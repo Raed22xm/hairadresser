@@ -44,7 +44,7 @@ export const createBlockedSlotSchema = z.object({
 // --- Booking Schemas ---
 
 export const createBookingSchema = z.object({
-  serviceId: z.string().uuid('Must be a valid service ID'),
+  serviceId: z.string().min(1, 'Service is required'),
   date: z.string().regex(DATE_REGEX, 'Must be YYYY-MM-DD format'),
   startTime: z.string().regex(TIME_REGEX, 'Must be HH:mm format'),
   customerName: z.string().min(1, 'Customer name is required'),
